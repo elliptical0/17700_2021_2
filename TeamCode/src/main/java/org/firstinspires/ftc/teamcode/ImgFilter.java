@@ -28,12 +28,6 @@ public class ImgFilter extends OpenCvPipeline {
 	public int stackSize = 0;
 	public double lastRatio = 0;
 
-	/*
-	static {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-	}
- 	*/
-
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 * @return
