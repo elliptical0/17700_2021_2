@@ -91,9 +91,15 @@ public class Constants {
 
     public static final boolean SERVOS_ACTIVE = false;
 
+    public static final boolean FLYWHEEL_ENCODER = false;
+
+    public static final double FLYWHEEL_MAX_RPM = 223;
+
     public static final double FILTER_AREA = 200;
 
     public static final double FILTER_HUE_HIGH = 80;
 
     public static final double FILTER_RATIO = 1.6;
+
+    public static final String BUILD_NAME = "v0.2.0";
 }

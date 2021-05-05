@@ -15,6 +15,12 @@ public class TeleOpMode extends BaseOpMode {
     private boolean paddeb = true;
 
     @Override
+    public void beginTick() {
+        super.beginTick();
+        startVision(false);
+    }
+
+    @Override
     public void tick() {
         //Sticks and triggers for movement
         if(gamepad1.left_bumper) {

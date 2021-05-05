@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import static org.firstinspires.ftc.teamcode.MyMathLib.*;
 import static org.firstinspires.ftc.teamcode.Constants.*;
 
 /**
@@ -65,17 +64,17 @@ public class AutoOpMode_0 extends BaseOpMode {
         wheelPowers = D;
         switch(state) {
             case 0:
-                startVision();
+                startVision(true);
                 moveState(0);
                 break;
             case 1:
-                moveState(1, 3);
+                moveState(1);
                 break;
             case 2:
-                /*
-                startVision();
-                changeState(3);
-                 */
+                if(cam.getFps() >= 0.0) {
+                    changeState(3);
+                }
+                break;
             case 3:
                 telemetry.addData("Stack Size:", filter.stackSize);
                 telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());

@@ -34,6 +34,8 @@ public class BaseOpMode extends LinearOpMode {
     DcMotor[] motors = new DcMotor[3];
     DcMotor intake;
     DcMotor flywheel;
+    double lastFlywheelPos;
+    int flywheelAtSpeedTicks = 0;
     CRServo magazine;
     Servo wobbleAim;
     int wobbleAimIndex = 0;
@@ -57,6 +59,13 @@ public class BaseOpMode extends LinearOpMode {
 
     int shoti = 0;
 
+    /**
+     * Called once, after waitForStart() and before tick().
+     */
+    public void beginTick() {
+        clock.reset();
+    }
+
     public void tick() {
         updateTelemetry();
     }
@@ -77,6 +86,7 @@ public class BaseOpMode extends LinearOpMode {
 
     public void updateTelemetry() {
         telemetry.addData("Transform", transform);
+        telemetry.addData("Build Name:", BUILD_NAME);
         telemetry.addData("", "");
         telemetry.addData("To calibrate", "drag the robot forward " + CALIB_DIST + " inches (and do nothing else) and read the value below.");
         telemetry.addData("DEADWHEEL_RADIUS (" + CALIB_DIST + ")", CALIB_DIST / (2 * Math.PI * ((encoderPos[0] + encoderPos[1]) / 2) / TICKS_PER_REV));
@@ -91,6 +101,18 @@ public class BaseOpMode extends LinearOpMode {
             intake.setPower(1);
             magazine.setPower(-1);
             flywheel.setPower(1);
+        } else if(FLYWHEEL_ENCODER) {
+            if(fly) {
+                flywheel.setPower(-1);
+                if (calculateRPM(Math.abs(flywheel.getCurrentPosition() - lastFlywheelPos), deltaTime) > FLYWHEEL_MAX_RPM * 0.95) {
+                    magazine.setPower(1);
+                } else if(mag) {
+                    magazine.setPower(1);
+                } else {
+                    magazine.setPower(0);
+                }
+                intake.setPower(0);
+            }
         } else {
             //Flywheel Controls
             if(fly) {
@@ -140,15 +162,20 @@ public class BaseOpMode extends LinearOpMode {
         transform.set(0, 0, 0);
     }
 
-    public void startVision() {
-        filter = new ImgFilter();
-        cam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
+    public void startVision(final boolean autoMode) {
+        if(autoMode) {
+            filter = new ImgFilter();
+        }
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        cam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         cam.setPipeline(filter);
         cam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
                 resumeVision();
-                cam.setPipeline(filter);
+                if(autoMode) {
+                    cam.setPipeline(filter);
+                }
             }
         });
     }
@@ -158,19 +185,18 @@ public class BaseOpMode extends LinearOpMode {
     }
 
     public void resumeVision() {
-        cam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+        cam.openCameraDevice();
+        cam.startStreaming(640, 480, OpenCvCameraRotation.SIDEWAYS_RIGHT);
     }
 
     public void initialize() {
-        clock.startTime();
-
         transform = SharedVariables.transform;
         for (i = 0; i < 4; i++) {
             drive[i] = hardwareMap.get(DcMotor.class, "motor" + i);
         }
         if(SERVOS_ACTIVE) {
-            intake = hardwareMap.get(DcMotor.class, "motor6");
-            flywheel = hardwareMap.get(DcMotor.class, "motor5");
+            intake = hardwareMap.get(DcMotor.class, "motor5");
+            flywheel = hardwareMap.get(DcMotor.class, "motor6");
             counterweight = hardwareMap.get(Servo.class, "servo6");
             counterweight.setDirection(Servo.Direction.REVERSE);
             magazine = hardwareMap.get(CRServo.class, "servo5");
@@ -192,6 +218,7 @@ public class BaseOpMode extends LinearOpMode {
 
         waitForStart();
 
+        beginTick();
         while(opModeIsActive()) {
             updateTime();
             updateOdometry();

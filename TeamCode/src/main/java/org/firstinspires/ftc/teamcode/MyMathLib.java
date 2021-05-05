@@ -148,4 +148,14 @@ import static org.firstinspires.ftc.teamcode.Constants.*;
          //t.head += dt;
          return new Transform(t.pos.add(dpos), (pwheel[0] - pwheel[1]) / LATERAL_DISTANCE);
      }
+
+     /**
+      * Estimate instantaneous RPM of an encoded motor.
+      * @param denc delta encoder
+      * @param dt delta time
+      * @return estimated RPM
+      */
+     public static double calculateRPM(double denc, double dt) {
+         return ((denc / TICKS_PER_REV) / dt) * 60;
+     }
  }
