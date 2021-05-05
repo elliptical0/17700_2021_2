@@ -72,7 +72,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 1/3};
+    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333};
 
     /**
      *
@@ -101,5 +101,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.4.1";
+    public static final String BUILD_NAME = "v0.5.0";
 }

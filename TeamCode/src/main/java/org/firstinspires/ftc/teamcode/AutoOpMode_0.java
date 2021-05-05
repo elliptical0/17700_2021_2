@@ -17,11 +17,13 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     public final int STARTING_T_I = 0;
 
+    public double stateStartTime = currentTime;
+
     private boolean b;
 
     public void changeState(int i) {
         state = i;
-        clock.reset();
+        stateStartTime = currentTime;
     }
 
     public final Transform[] transforms = {new Transform(36, 24, 0),
@@ -84,7 +86,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 telemetry.addData("LastRatio:", filter.lastRatio);
                 telemetry.addData("FPS:", cam.getFps());
                  */
-                if(currentTime > 3) { //|| stackSize != 0) {
+                if(currentTime - stateStartTime > 3) { //|| stackSize != 0) {
                     pauseVision();
                     changeState(4);
                 }
@@ -136,7 +138,7 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 13:
                 if(shotsFired < 3) {
                     powerIntake(false, true, false);
-                    if(currentTime > 1) {
+                    if(currentTime - stateStartTime > 1) {
                         changeState(14);
                     }
                 } else {
@@ -145,7 +147,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 14:
                 powerIntake(false, true, true);
-                if(currentTime > 0.5) {
+                if(currentTime - stateStartTime > 0.5) {
                     shotsFired++;
                     changeState(13);
                 }

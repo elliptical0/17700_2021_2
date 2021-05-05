@@ -26,7 +26,7 @@ public class BaseOpMode extends LinearOpMode {
     int i;
     double d;
 
-    ElapsedTime clock = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
+    double startTime;
     double currentTime;
     double deltaTime;
 
@@ -34,7 +34,6 @@ public class BaseOpMode extends LinearOpMode {
     DcMotor[] motors = new DcMotor[3];
     DcMotor intake;
     DcMotor flywheel;
-    double lastFlywheelPos;
     int flywheelAtSpeedTicks = 0;
     CRServo magazine;
     Servo wobbleAim;
@@ -63,7 +62,7 @@ public class BaseOpMode extends LinearOpMode {
      * Called once, after waitForStart() and before tick().
      */
     public void beginTick() {
-        clock.reset();
+        startTime = System.currentTimeMillis()*1000;
     }
 
     public void tick() {
@@ -71,8 +70,8 @@ public class BaseOpMode extends LinearOpMode {
     }
 
     public void updateTime() {
-        deltaTime = clock.time() > currentTime ? clock.time() - currentTime : clock.time();
-        currentTime = clock.time();
+        deltaTime = System.currentTimeMillis()*1000 - startTime - currentTime;
+        currentTime = System.currentTimeMillis()*1000 - startTime;
     }
 
     public void updateOdometry() {
@@ -87,6 +86,8 @@ public class BaseOpMode extends LinearOpMode {
     public void updateTelemetry() {
         telemetry.addData("Transform", transform);
         telemetry.addData("Build Name:", BUILD_NAME);
+        telemetry.addData("FlywheelPosition:", flywheel.getCurrentPosition());
+        telemetry.addData("FlywheelRPM:", calculateRPM(flywheel.getCurrentPosition()));
         telemetry.addData("", "");
         telemetry.addData("To calibrate", "drag the robot forward " + CALIB_DIST + " inches (and do nothing else) and read the value below.");
         telemetry.addData("DEADWHEEL_RADIUS (" + CALIB_DIST + ")", CALIB_DIST / (2 * Math.PI * ((encoderPos[0] + encoderPos[1]) / 2) / TICKS_PER_REV));
@@ -104,15 +105,18 @@ public class BaseOpMode extends LinearOpMode {
         } else if(FLYWHEEL_ENCODER) {
             if(fly) {
                 flywheel.setPower(-1);
-                if (calculateRPM(Math.abs(flywheel.getCurrentPosition() - lastFlywheelPos), deltaTime) > FLYWHEEL_MAX_RPM * 0.95) {
+                if (calculateRPM(Math.abs(flywheel.getCurrentPosition())) > FLYWHEEL_MAX_RPM * 0.95) {
                     magazine.setPower(1);
                 } else if(mag) {
                     magazine.setPower(1);
                 } else {
                     magazine.setPower(0);
                 }
-                intake.setPower(0);
+            } else {
+                flywheel.setPower(0);
+                magazine.setPower(0);
             }
+            intake.setPower(0);
         } else {
             //Flywheel Controls
             if(fly) {
