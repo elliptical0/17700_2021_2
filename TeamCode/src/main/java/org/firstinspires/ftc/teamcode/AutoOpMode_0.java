@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import static org.firstinspires.ftc.teamcode.Constants.*;
+import static org.firstinspires.ftc.teamcode.MyMathLib.*;
 
 /**
  * @author TM
@@ -37,9 +38,10 @@ public class AutoOpMode_0 extends BaseOpMode {
     }
 
     public void moveState(int i, int nextState) {
+        /*
         changeState(nextState);
         return;
-        /*
+         */
         wheelPowers = seekLocation(transform, transforms[i]);
         b = true;
         for(double p : wheelPowers) {
@@ -50,7 +52,6 @@ public class AutoOpMode_0 extends BaseOpMode {
         if(b) {
             changeState(nextState);
         }
-         */
     }
 
     @Override
@@ -76,17 +77,17 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 3:
+                /*
                 telemetry.addData("Stack Size:", filter.stackSize);
                 telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());
                 telemetry.addData("Filtered Contour Count:", filter.filterContoursOutput().size());
                 telemetry.addData("LastRatio:", filter.lastRatio);
                 telemetry.addData("FPS:", cam.getFps());
-                /*
-                if(currentTime > 2) { //|| stackSize != 0) {
+                 */
+                if(currentTime > 3) { //|| stackSize != 0) {
                     pauseVision();
                     changeState(4);
                 }
-                 */
                 break;
             case 4:
                 moveState(2);
@@ -156,6 +157,7 @@ public class AutoOpMode_0 extends BaseOpMode {
         }
         updateMotors();
         telemetry.addData("State:", state);
+        telemetry.addData("StackSize:", filter.stackSize);
         updateTelemetry();
     }
 }

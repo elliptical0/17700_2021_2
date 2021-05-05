@@ -8,17 +8,11 @@ import static org.firstinspires.ftc.teamcode.Constants.*;
 /**
  * @author TM
  */
-@TeleOp(name="TeleOpMode", group="default")
+@TeleOp(name="TeleOpMode", group="stream-enabled")
 public class TeleOpMode extends BaseOpMode {
     private boolean backdeb = true;
     private boolean rstickdeb = true;
     private boolean paddeb = true;
-
-    @Override
-    public void beginTick() {
-        super.beginTick();
-        startVision(false);
-    }
 
     @Override
     public void tick() {

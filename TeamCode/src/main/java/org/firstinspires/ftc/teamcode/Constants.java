@@ -89,7 +89,7 @@ public class Constants {
 
     public static final double DEADZONE_SERVO = 0.05;
 
-    public static final boolean SERVOS_ACTIVE = false;
+    public static final boolean SERVOS_ACTIVE = true;
 
     public static final boolean FLYWHEEL_ENCODER = false;
 
@@ -101,5 +101,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.2.0";
+    public static final String BUILD_NAME = "v0.3.1";
 }

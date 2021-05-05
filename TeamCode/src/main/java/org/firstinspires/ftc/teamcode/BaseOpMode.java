@@ -163,12 +163,10 @@ public class BaseOpMode extends LinearOpMode {
     }
 
     public void startVision(final boolean autoMode) {
+        cam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
         if(autoMode) {
             filter = new ImgFilter();
         }
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        cam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        cam.setPipeline(filter);
         cam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -186,7 +184,7 @@ public class BaseOpMode extends LinearOpMode {
 
     public void resumeVision() {
         cam.openCameraDevice();
-        cam.startStreaming(640, 480, OpenCvCameraRotation.SIDEWAYS_RIGHT);
+        cam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
     }
 
     public void initialize() {
