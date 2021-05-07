@@ -58,8 +58,8 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     @Override
     public void initialize() {
-        resetPosition(0);
         super.initialize();
+        resetPosition(0);
     }
 
     @Override
