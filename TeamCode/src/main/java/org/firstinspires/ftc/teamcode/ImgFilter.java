@@ -43,8 +43,8 @@ public class ImgFilter extends OpenCvPipeline {
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = blurOutput;
 		double[] hsvThresholdHue = {0.0, FILTER_HUE_HIGH};
-		double[] hsvThresholdSaturation = {90.0, 255.0};
-		double[] hsvThresholdValue = {181.0, 255.0};
+		double[] hsvThresholdSaturation = {FILTER_SATURATION_LOW, 255.0};
+		double[] hsvThresholdValue = {FILTER_VALUE_LOW, 255.0};
 		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
 
 		// Step Find_Contours0:
@@ -58,7 +58,7 @@ public class ImgFilter extends OpenCvPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = convexHullsOutput;
-		double filterContoursMinArea = FILTER_AREA;
+		double filterContoursMinArea = FILTER_MIN_AREA;
 		double filterContoursMinPerimeter = 0.0;
 		double filterContoursMinWidth = 0.0;
 		double filterContoursMaxWidth = 1000.0;
@@ -296,6 +296,13 @@ public class ImgFilter extends OpenCvPipeline {
 		if(!inputContours.isEmpty()) {
 			if(null != inputContours.get(0)) {
 				Rect bb = Imgproc.boundingRect(inputContours.get(0));
+				for(MatOfPoint c : inputContours) {
+					Rect bb1 = Imgproc.boundingRect(c);
+					if (bb1.x < bb.x) {
+						bb = bb1;
+						break;
+					}
+				}
 				double ratio = (double) bb.height / bb.width;
 				if (ratio < FILTER_RATIO) {
 					stackSize = 4;

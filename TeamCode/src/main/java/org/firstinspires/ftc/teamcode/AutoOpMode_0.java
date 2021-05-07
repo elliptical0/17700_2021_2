@@ -26,8 +26,8 @@ public class AutoOpMode_0 extends BaseOpMode {
         stateStartTime = currentTime;
     }
 
-    public final Transform[] transforms = {new Transform(32, 20, 0),
-            new Transform(32, 20, Math.toRadians(-45)),
+    public final Transform[] transforms = {new Transform(22.2, 16.5, 0),
+            new Transform(22.2, 16.5, -0.462),
             new Transform(50, 20, 0),
             new Transform(62, 12, 0),
             new Transform(86, 36, 0),
@@ -122,22 +122,26 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 11:
-                wobbleHandIndex = 0;
-                if(currentTime - stateStartTime > 333) {
+                wobbleHandIndex = 1;
+                if(currentTime - stateStartTime > 1200) {
+                    wobbleHandIndex = 0;
+                    launchIndex = 1;
+                    changeState(12);
+                } else if(currentTime - stateStartTime > 500) {
                     wobbleAimIndex = 0;
                     changeState(12);
-                    launchIndex = 1;
                 }
                 break;
             case 12:
                 moveState(6);
                 break;
             case 13:
-                if(currentTime - stateStartTime > 2000) {
+                if(currentTime > 29500) {
+                    changeState(99);
+                } else if(currentTime - stateStartTime > 3000) {
                     powerIntake(false, true, false);
-                    if(currentTime > 29500) {
-                        changeState(99);
-                    }
+                } else if(currentTime - stateStartTime > 700) {
+                    wobbleHandIndex = 0;
                 }
                 break;
             case 23:
