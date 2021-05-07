@@ -28,9 +28,9 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     public final Transform[] transforms = {new Transform(32, 20, 0),
             new Transform(32, 20, Math.toRadians(-45)),
-            new Transform(60, 24, 0),
-            new Transform(72, 12, 0),
-            new Transform(96, 36, 0),
+            new Transform(50, 24, 0),
+            new Transform(62, 12, 0),
+            new Transform(86, 36, 0),
             new Transform(120, 12, 0),
             SHOOTING_T
     };
