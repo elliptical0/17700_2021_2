@@ -171,7 +171,9 @@ public class BaseOpMode extends LinearOpMode {
         counterweight.setPosition(COUNTERWEIGHT_POSITIONS[launchIndex]);
     }
 
+    @Deprecated
     public boolean servoAtPos(Servo servo, double pos) {
+        telemetry.addData("ServoPosition: ", servo.getController().getServoPosition(0));
         return Math.abs(servo.getController().getServoPosition(0) - pos) < DEADZONE_SERVO;
     }
 

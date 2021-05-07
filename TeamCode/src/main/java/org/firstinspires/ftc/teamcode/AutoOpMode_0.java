@@ -28,7 +28,7 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     public final Transform[] transforms = {new Transform(32, 20, 0),
             new Transform(32, 20, Math.toRadians(-45)),
-            new Transform(50, 24, 0),
+            new Transform(50, 20, 0),
             new Transform(62, 12, 0),
             new Transform(86, 36, 0),
             new Transform(120, 12, 0),
@@ -93,9 +93,11 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 4:
+                wobbleAimIndex = 1;
                 moveState(2);
                 break;
             case 5:
+                wobbleAimIndex = 2;
                 switch(filter.stackSize) {
                     case 1:
                         changeState(8);
@@ -115,45 +117,44 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 9:
                 moveState(5, 10);
             case 10:
-                if(!SERVOS_ACTIVE) {
-                    changeState(2);
-                    break;
-                }
-                wobbleAimIndex = 2;
-                if(servoAtPos(wobbleAim, WOBBLE_AIM_POSITIONS[2])) {
+                if(currentTime - stateStartTime > 1000) {
                     changeState(11);
                 }
-                updateWobbleAim();
                 break;
             case 11:
                 wobbleHandIndex = 0;
-                if(servoAtPos(wobbleHand, WOBBLE_HAND_POSITIONS[0])) {
+                if(currentTime - stateStartTime > 333) {
                     wobbleAimIndex = 0;
-                }
-                if(servoAtPos(wobbleAim, WOBBLE_AIM_POSITIONS[0])) {
                     changeState(12);
+                    launchIndex = 1;
                 }
-                updateWobbleAim();
-                updateWobbleHand();
                 break;
             case 12:
                 moveState(6);
                 break;
             case 13:
+                if(currentTime - stateStartTime > 2000) {
+                    powerIntake(false, true, false);
+                    if(currentTime > 29500) {
+                        changeState(99);
+                    }
+                }
+                break;
+            case 23:
                 if(shotsFired < 3) {
                     powerIntake(false, true, false);
                     if(currentTime - stateStartTime > 1000) {
-                        changeState(14);
+                        changeState(24);
                     }
                 } else {
                     changeState(99);
                 }
                 break;
-            case 14:
+            case 24:
                 powerIntake(false, true, true);
                 if(currentTime - stateStartTime > 500) {
                     shotsFired++;
-                    changeState(13);
+                    changeState(23);
                 }
                 break;
             case 99:
@@ -161,6 +162,9 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
         }
         updateMotors();
+        updateWobbleAim();
+        updateWobbleHand();
+        updateLaunchAim();
         telemetry.addData("State:", state);
         telemetry.addData("StackSize:", filter.stackSize);
         updateTelemetry();

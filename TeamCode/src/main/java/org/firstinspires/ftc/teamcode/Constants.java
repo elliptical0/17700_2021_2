@@ -67,7 +67,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.27};
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.26};
 
     /**
      *
@@ -93,7 +93,7 @@ public class Constants {
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
-    public static final double FLYWHEEL_MAX_RPM = 850;
+    public static final double FLYWHEEL_MAX_RPM = 855;
 
     public static final double FILTER_AREA = 200;
 
@@ -101,5 +101,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.8.2";
+    public static final String BUILD_NAME = "v0.9.0";
 }
