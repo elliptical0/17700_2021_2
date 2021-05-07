@@ -62,7 +62,7 @@ public class BaseOpMode extends LinearOpMode {
      * Called once, after waitForStart() and before tick().
      */
     public void beginTick() {
-        startTime = System.currentTimeMillis()*1000;
+        startTime = System.currentTimeMillis();
     }
 
     public void tick() {
@@ -70,8 +70,8 @@ public class BaseOpMode extends LinearOpMode {
     }
 
     public void updateTime() {
-        deltaTime = System.currentTimeMillis()*1000 - startTime - currentTime;
-        currentTime = System.currentTimeMillis()*1000 - startTime;
+        deltaTime = System.currentTimeMillis() - startTime - currentTime;
+        currentTime = System.currentTimeMillis() - startTime;
     }
 
     public void updateOdometry() {

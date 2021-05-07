@@ -86,7 +86,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 telemetry.addData("LastRatio:", filter.lastRatio);
                 telemetry.addData("FPS:", cam.getFps());
                  */
-                if(currentTime - stateStartTime > 3) { //|| stackSize != 0) {
+                if(currentTime - stateStartTime > 3000) { //|| stackSize != 0) {
                     pauseVision();
                     changeState(4);
                 }
@@ -138,7 +138,7 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 13:
                 if(shotsFired < 3) {
                     powerIntake(false, true, false);
-                    if(currentTime - stateStartTime > 1) {
+                    if(currentTime - stateStartTime > 1000) {
                         changeState(14);
                     }
                 } else {
@@ -147,7 +147,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 14:
                 powerIntake(false, true, true);
-                if(currentTime - stateStartTime > 0.5) {
+                if(currentTime - stateStartTime > 500) {
                     shotsFired++;
                     changeState(13);
                 }
