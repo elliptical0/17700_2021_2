@@ -35,6 +35,7 @@ public class BaseOpMode extends LinearOpMode {
     DcMotor intake;
     DcMotor flywheel;
     double lastFlywheelPosition;
+    double flywheelRPM;
     int flywheelAtSpeedTicks = 0;
     CRServo magazine;
     Servo wobbleAim;
@@ -88,7 +89,7 @@ public class BaseOpMode extends LinearOpMode {
         telemetry.addData("Transform", transform);
         telemetry.addData("Build Name:", BUILD_NAME);
         telemetry.addData("FlywheelPosition:", flywheel.getCurrentPosition());
-        telemetry.addData("FlywheelRPM:", calculateRPM(Math.abs(flywheel.getCurrentPosition() - lastFlywheelPosition), deltaTime));
+        telemetry.addData("FlywheelRPM:", flywheelRPM);
         telemetry.addData("", "");
         telemetry.addData("To calibrate", "drag the robot forward " + CALIB_DIST + " inches (and do nothing else) and read the value below.");
         telemetry.addData("DEADWHEEL_RADIUS (" + CALIB_DIST + ")", CALIB_DIST / (2 * Math.PI * ((encoderPos[0] + encoderPos[1]) / 2) / TICKS_PER_REV));
@@ -99,6 +100,7 @@ public class BaseOpMode extends LinearOpMode {
     }
 
     public void powerIntake(boolean in, boolean fly, boolean mag) {
+        flywheelRPM = calculateRPM(Math.abs(flywheel.getCurrentPosition() - lastFlywheelPosition), deltaTime);
         if(in) {
             intake.setPower(1);
             magazine.setPower(-1);
@@ -106,7 +108,7 @@ public class BaseOpMode extends LinearOpMode {
         } else if(FLYWHEEL_ENCODER) {
             if(fly) {
                 flywheel.setPower(-1);
-                if (calculateRPM(Math.abs(flywheel.getCurrentPosition() - lastFlywheelPosition), deltaTime) > FLYWHEEL_MAX_RPM * 0.95) {
+                if (flywheelRPM > FLYWHEEL_MAX_RPM * 0.95) {
                     magazine.setPower(1);
                 } else if(mag) {
                     magazine.setPower(1);
