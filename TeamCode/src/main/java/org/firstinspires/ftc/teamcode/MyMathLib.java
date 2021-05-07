@@ -156,6 +156,6 @@ import static org.firstinspires.ftc.teamcode.Constants.*;
       * @return estimated RPM
       */
      public static double calculateRPM(double denc, double dt) {
-         return (((denc / TICKS_PER_REV)) / 60) * dt;
+         return ((denc / 28) * 60) * dt;
      }
  }

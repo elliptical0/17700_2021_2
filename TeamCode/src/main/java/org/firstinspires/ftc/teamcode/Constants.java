@@ -101,5 +101,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.6.1";
+    public static final String BUILD_NAME = "v0.7.0";
 }

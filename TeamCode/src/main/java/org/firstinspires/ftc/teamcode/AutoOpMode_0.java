@@ -89,7 +89,6 @@ public class AutoOpMode_0 extends BaseOpMode {
                 telemetry.addData("Current Time:", currentTime);
                 telemetry.addData("StateStartTime:", stateStartTime);
                 if(currentTime - stateStartTime > 3000) { //|| stackSize != 0) {
-                    pauseVision();
                     changeState(4);
                 }
                 break;
