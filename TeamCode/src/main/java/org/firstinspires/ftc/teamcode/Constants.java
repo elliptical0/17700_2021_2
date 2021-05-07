@@ -84,8 +84,8 @@ public class Constants {
     /**
      * Deadzones for when the robot is autonomously seeking a position.
      */
-    public static final double DEADZONE_POS = 0.5;
-    public static final double DEADZONE_ANGLE = Math.toRadians(4);
+    public static final double DEADZONE_POS = 0.75;
+    public static final double DEADZONE_ANGLE = Math.toRadians(6);
 
     public static final double DEADZONE_SERVO = 0.1;
 
@@ -105,5 +105,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.10.0";
+    public static final String BUILD_NAME = "v0.10.1";
 }

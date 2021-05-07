@@ -79,15 +79,12 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 3:
-                /*
                 telemetry.addData("Stack Size:", filter.stackSize);
                 telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());
                 telemetry.addData("Filtered Contour Count:", filter.filterContoursOutput().size());
                 telemetry.addData("LastRatio:", filter.lastRatio);
                 telemetry.addData("FPS:", cam.getFps());
-                 */
-                telemetry.addData("Current Time:", currentTime);
-                telemetry.addData("StateStartTime:", stateStartTime);
+
                 if(currentTime - stateStartTime > 3000) { //|| stackSize != 0) {
                     changeState(4);
                 }
@@ -129,7 +126,6 @@ public class AutoOpMode_0 extends BaseOpMode {
                     changeState(12);
                 } else if(currentTime - stateStartTime > 500) {
                     wobbleAimIndex = 0;
-                    changeState(12);
                 }
                 break;
             case 12:
@@ -162,7 +158,6 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 99:
-                stop();
                 break;
         }
         updateMotors();
