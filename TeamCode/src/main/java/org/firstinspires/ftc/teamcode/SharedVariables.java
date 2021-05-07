@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
  * Carry over variables from autonomous to teleop.
  * @author TM
  */
+@Deprecated
 public class SharedVariables {
     static Transform transform = Constants.STARTING_T[0];
 

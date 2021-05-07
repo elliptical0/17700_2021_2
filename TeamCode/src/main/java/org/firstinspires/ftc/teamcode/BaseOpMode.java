@@ -163,11 +163,11 @@ public class BaseOpMode extends LinearOpMode {
         return Math.abs(servo.getController().getServoPosition(0) - pos) < DEADZONE_SERVO;
     }
 
-    public void resetPosition() {
+    public void resetPosition(int index) {
         for(i = 0; i < 3; i++) {
             encoderResetPos[i] = (drive[i].getCurrentPosition());
         }
-        transform.set(0, 0, 0);
+        transform = STARTING_T[index];
     }
 
     public void startVision(final boolean autoMode) {
@@ -196,7 +196,6 @@ public class BaseOpMode extends LinearOpMode {
     }
 
     public void initialize() {
-        transform = SharedVariables.transform;
         for (i = 0; i < 4; i++) {
             drive[i] = hardwareMap.get(DcMotor.class, "motor" + i);
         }

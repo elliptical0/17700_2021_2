@@ -26,12 +26,12 @@ public class AutoOpMode_0 extends BaseOpMode {
         stateStartTime = currentTime;
     }
 
-    public final Transform[] transforms = {new Transform(36, 24, 0),
-            new Transform(36, 24, Math.toRadians(-45)),
+    public final Transform[] transforms = {new Transform(32, 20, 0),
+            new Transform(32, 20, Math.toRadians(-45)),
             new Transform(60, 24, 0),
-            new Transform(72, 12, Math.toRadians(180)),
-            new Transform(96, 36, Math.toRadians(180)),
-            new Transform(120, 12, Math.toRadians(180)),
+            new Transform(72, 12, 0),
+            new Transform(96, 36, 0),
+            new Transform(120, 12, 0),
             SHOOTING_T
     };
 
@@ -58,7 +58,7 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     @Override
     public void initialize() {
-        SharedVariables.startingTransform(STARTING_T_I);
+        resetPosition(0);
         super.initialize();
     }
 
@@ -86,6 +86,8 @@ public class AutoOpMode_0 extends BaseOpMode {
                 telemetry.addData("LastRatio:", filter.lastRatio);
                 telemetry.addData("FPS:", cam.getFps());
                  */
+                telemetry.addData("Current Time:", currentTime);
+                telemetry.addData("StateStartTime:", stateStartTime);
                 if(currentTime - stateStartTime > 3000) { //|| stackSize != 0) {
                     pauseVision();
                     changeState(4);
@@ -153,7 +155,6 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 99:
-                SharedVariables.transform = transform;
                 stop();
                 break;
         }
