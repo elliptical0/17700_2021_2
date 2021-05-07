@@ -67,7 +67,7 @@ public class AutoOpMode_0 extends BaseOpMode {
         wheelPowers = D;
         switch(state) {
             case 0:
-                startVision(true);
+                startVision();
                 moveState(0);
                 break;
             case 1:

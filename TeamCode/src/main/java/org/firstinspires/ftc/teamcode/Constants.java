@@ -57,7 +57,7 @@ public class Constants {
     /**
      * Shooting transform in inches.
      */
-    public static final Transform SHOOTING_T = new Transform(68.2, 22.157, -0.05); //0.059
+    public static final Transform SHOOTING_T = new Transform(68.2, 22.157, 0.1); //0.059
 
     /**
      * Starting transform of the robot in inches.
@@ -95,9 +95,9 @@ public class Constants {
 
     public static final double FLYWHEEL_MAX_RPM = 835;
 
-    public static final double FILTER_MIN_AREA = 200;
+    public static final double FILTER_MIN_AREA = 0;
 
-    public static final double FILTER_HUE_HIGH = 30;
+    public static final double FILTER_HUE_HIGH = 20;
 
     public static final double FILTER_SATURATION_LOW = 0;
 
@@ -105,5 +105,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.11.0";
+    public static final String BUILD_NAME = "v0.11.1";
 }
