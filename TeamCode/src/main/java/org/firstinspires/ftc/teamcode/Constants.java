@@ -67,7 +67,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.255};
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.25};
 
     /**
      *
@@ -105,5 +105,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.11.1";
+    public static final String BUILD_NAME = "v0.11.2";
 }

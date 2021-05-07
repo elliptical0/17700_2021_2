@@ -74,12 +74,13 @@ public class AutoOpMode_0 extends BaseOpMode {
                 moveState(1);
                 break;
             case 2:
-                if(cam.getFps() >= 0.0) {
+                if(cam.getFps() > 0.0) {
                     changeState(3);
                 }
                 break;
             case 3:
                 telemetry.addData("Stack Size:", filter.stackSize);
+                telemetry.addData("Image Area", filter.hsvThresholdOutput().height() * filter.hsvThresholdOutput().width());
                 telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());
                 telemetry.addData("Filtered Contour Count:", filter.filterContoursOutput().size());
                 telemetry.addData("LastRatio:", filter.lastRatio);
