@@ -84,16 +84,16 @@ public class Constants {
     /**
      * Deadzones for when the robot is autonomously seeking a position.
      */
-    public static final double DEADZONE_POS = 1.5;
-    public static final double DEADZONE_ANGLE = Math.toRadians(8);
+    public static final double DEADZONE_POS = 0.5;
+    public static final double DEADZONE_ANGLE = Math.toRadians(4);
 
-    public static final double DEADZONE_SERVO = 0.05;
+    public static final double DEADZONE_SERVO = 0.1;
 
     public static final boolean SERVOS_ACTIVE = true;
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
-    public static final double FLYWHEEL_MAX_RPM = 1000;
+    public static final double FLYWHEEL_MAX_RPM = 850;
 
     public static final double FILTER_AREA = 200;
 
@@ -101,5 +101,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.7.3";
+    public static final String BUILD_NAME = "v0.8.0.";
 }
