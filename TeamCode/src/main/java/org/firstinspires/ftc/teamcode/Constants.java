@@ -57,7 +57,7 @@ public class Constants {
     /**
      * Shooting transform in inches.
      */
-    public static final Transform SHOOTING_T = new Transform(84, 60, 0);
+    public static final Transform SHOOTING_T = new Transform(69.68, 22.157, 0.059);
 
     /**
      * Starting transform of the robot in inches.
@@ -101,5 +101,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.7.2";
+    public static final String BUILD_NAME = "v0.7.3";
 }
