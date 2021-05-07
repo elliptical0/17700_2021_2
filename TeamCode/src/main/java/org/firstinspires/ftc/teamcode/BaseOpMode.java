@@ -36,7 +36,8 @@ public class BaseOpMode extends LinearOpMode {
     DcMotor flywheel;
     double lastFlywheelPosition;
     double flywheelRPM;
-    int flywheelAtSpeedTicks = 0;
+    double[] flywheelRPMHistory = new double[30];
+    int flywheelRPMHistoryIndex = 0;
     CRServo magazine;
     Servo wobbleAim;
     int wobbleAimIndex = 0;
@@ -99,8 +100,19 @@ public class BaseOpMode extends LinearOpMode {
         telemetry.update();
     }
 
-    public void powerIntake(boolean in, boolean fly, boolean mag) {
+    public void flywheelRPM() {
         flywheelRPM = calculateRPM(Math.abs(flywheel.getCurrentPosition() - lastFlywheelPosition), deltaTime);
+        flywheelRPMHistory[flywheelRPMHistoryIndex] = flywheelRPM;
+        flywheelRPMHistoryIndex = (flywheelRPMHistoryIndex + 1) % flywheelRPMHistory.length;
+        flywheelRPM = 0;
+        for(double d : flywheelRPMHistory) {
+            flywheelRPM += d;
+        }
+        flywheelRPM /= flywheelRPMHistory.length;
+    }
+
+    public void powerIntake(boolean in, boolean fly, boolean mag) {
+        flywheelRPM();
         if(in) {
             intake.setPower(1);
             magazine.setPower(-1);

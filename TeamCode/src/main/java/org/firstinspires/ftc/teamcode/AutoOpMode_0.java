@@ -123,6 +123,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 if(servoAtPos(wobbleAim, WOBBLE_AIM_POSITIONS[2])) {
                     changeState(11);
                 }
+                updateWobbleAim();
                 break;
             case 11:
                 wobbleHandIndex = 0;
@@ -132,6 +133,8 @@ public class AutoOpMode_0 extends BaseOpMode {
                 if(servoAtPos(wobbleAim, WOBBLE_AIM_POSITIONS[0])) {
                     changeState(12);
                 }
+                updateWobbleAim();
+                updateWobbleHand();
                 break;
             case 12:
                 moveState(6);
