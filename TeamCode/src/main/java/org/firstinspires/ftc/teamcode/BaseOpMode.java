@@ -211,7 +211,7 @@ public class BaseOpMode extends LinearOpMode {
             intake = hardwareMap.get(DcMotor.class, "motor5");
             flywheel = hardwareMap.get(DcMotor.class, "motor6");
             counterweight = hardwareMap.get(Servo.class, "servo6");
-            counterweight.setDirection(Servo.Direction.REVERSE);
+            counterweight.setDirection(Servo.Direction.FORWARD);
             magazine = hardwareMap.get(CRServo.class, "servo5");
             wobbleAim = hardwareMap.get(Servo.class, "servo4");
             wobbleHand = hardwareMap.get(Servo.class, "servo3");
