@@ -36,7 +36,7 @@ public class BaseOpMode extends LinearOpMode {
     DcMotor flywheel;
     double lastFlywheelPosition;
     double flywheelRPM;
-    double[] flywheelRPMHistory = new double[45];
+    double[] flywheelRPMHistory = new double[30];
     int flywheelRPMHistoryIndex = 0;
     CRServo magazine;
     Servo wobbleAim;
