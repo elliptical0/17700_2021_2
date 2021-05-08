@@ -4,8 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name="AutoOpMode_1", group="default")
 public class AutoOpMode_1 extends AutoOpMode_0 {
-    public AutoOpMode_1() {
-        super();
+
+    @Override
+    public void initialize() {
         VISION_ENABLED = false;
+        super.initialize();
+        resetPosition(0);
     }
 }
