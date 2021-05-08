@@ -21,7 +21,7 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     private boolean b;
 
-    public boolean VISION_ENABLED = false;
+    public boolean VISION_ENABLED = true;
 
     public void changeState(int i) {
         state = i;
@@ -185,7 +185,6 @@ public class AutoOpMode_0 extends BaseOpMode {
             updateLaunchAim();
         }
         telemetry.addData("State:", state);
-        telemetry.addData("StackSize:", filter.stackSize);
         updateTelemetry();
     }
 }
