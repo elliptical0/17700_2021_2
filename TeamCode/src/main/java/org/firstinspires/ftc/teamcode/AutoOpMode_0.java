@@ -149,7 +149,7 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 13:
                 if(currentTime > 27000) {
                     changeState(14);
-                } else if(currentTime - stateStartTime > 3000) {
+                } else if(currentTime - stateStartTime > 4500) {
                     powerIntake(false, true, false);
                 } else if(currentTime - stateStartTime > 700) {
                     wobbleHandIndex = 0;
