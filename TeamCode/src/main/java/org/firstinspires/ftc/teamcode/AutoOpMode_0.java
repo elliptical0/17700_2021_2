@@ -135,7 +135,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 11:
                 wobbleHandIndex = 1;
-                if(currentTime - stateStartTime > 1200) {
+                if(currentTime - stateStartTime > 1500) {
                     wobbleHandIndex = 0;
                     launchIndex = 1;
                     changeState(12);

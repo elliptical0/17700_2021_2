@@ -57,7 +57,7 @@ public class Constants {
     /**
      * Shooting transform in inches.
      */
-    public static final Transform SHOOTING_T = new Transform(68.2, 22.157, 0.1); //0.059
+    public static final Transform SHOOTING_T = new Transform(68.2, 22.157, 0.15); //0.059
     //90.94, 14.72, 0.50
 
     /**
@@ -94,7 +94,7 @@ public class Constants {
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
-    public static final double FLYWHEEL_MAX_RPM = 845;
+    public static final double FLYWHEEL_MAX_RPM = 825;
 
     public static final double FILTER_MIN_AREA = 0;
 
@@ -106,5 +106,5 @@ public class Constants {
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.14.4";
+    public static final String BUILD_NAME = "v0.15.0";
 }
