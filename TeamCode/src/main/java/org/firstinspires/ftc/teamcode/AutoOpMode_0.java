@@ -40,10 +40,10 @@ public class AutoOpMode_0 extends BaseOpMode {
     }
 
     public void moveState(int i, int nextState) {
-        /*
-        changeState(nextState);
-        return;
-         */
+        if(!SERVOS_ACTIVE) {
+            changeState(nextState);
+            return;
+        }
         wheelPowers = seekLocation(transform, transforms[i]);
         b = true;
         for(double p : wheelPowers) {
@@ -86,7 +86,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 telemetry.addData("LastRatio:", filter.lastRatio);
                 telemetry.addData("FPS:", cam.getFps());
 
-                if(currentTime - stateStartTime > 3000) { //|| stackSize != 0) {
+                if(currentTime - stateStartTime > 3000 && SERVOS_ACTIVE) { //|| stackSize != 0) {
                     changeState(4);
                 }
                 break;
@@ -161,10 +161,12 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 99:
                 break;
         }
-        updateMotors();
-        updateWobbleAim();
-        updateWobbleHand();
-        updateLaunchAim();
+        if(SERVOS_ACTIVE) {
+            updateMotors();
+            updateWobbleAim();
+            updateWobbleHand();
+            updateLaunchAim();
+        }
         telemetry.addData("State:", state);
         telemetry.addData("StackSize:", filter.stackSize);
         updateTelemetry();

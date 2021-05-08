@@ -89,8 +89,6 @@ public class BaseOpMode extends LinearOpMode {
     public void updateTelemetry() {
         telemetry.addData("Transform", transform);
         telemetry.addData("Build Name:", BUILD_NAME);
-        telemetry.addData("FlywheelPosition:", flywheel.getCurrentPosition());
-        telemetry.addData("FlywheelRPM:", flywheelRPM);
         telemetry.addData("", "");
         telemetry.addData("To calibrate", "drag the robot forward " + CALIB_DIST + " inches (and do nothing else) and read the value below.");
         telemetry.addData("DEADWHEEL_RADIUS (" + CALIB_DIST + ")", CALIB_DIST / (2 * Math.PI * ((encoderPos[0] + encoderPos[1]) / 2) / TICKS_PER_REV));

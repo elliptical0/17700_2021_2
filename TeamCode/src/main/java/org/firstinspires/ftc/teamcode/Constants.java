@@ -93,17 +93,17 @@ public class Constants {
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
-    public static final double FLYWHEEL_MAX_RPM = 835;
+    public static final double FLYWHEEL_MAX_RPM = 845;
 
     public static final double FILTER_MIN_AREA = 0;
 
-    public static final double FILTER_HUE_HIGH = 20;
+    public static final double FILTER_HUE_HIGH = 80;
 
-    public static final double FILTER_SATURATION_LOW = 0;
+    public static final double FILTER_SATURATION_LOW = 90;
 
-    public static final double FILTER_VALUE_LOW = 0;
+    public static final double FILTER_VALUE_LOW = 181;
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.11.2";
+    public static final String BUILD_NAME = "v0.12.0";
 }

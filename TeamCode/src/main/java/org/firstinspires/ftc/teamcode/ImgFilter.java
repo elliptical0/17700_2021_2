@@ -298,7 +298,7 @@ public class ImgFilter extends OpenCvPipeline {
 				Rect bb = Imgproc.boundingRect(inputContours.get(0));
 				for(MatOfPoint c : inputContours) {
 					Rect bb1 = Imgproc.boundingRect(c);
-					if (bb1.x < bb.x) {
+					if (bb1.y < bb.y) {
 						bb = bb1;
 						break;
 					}
