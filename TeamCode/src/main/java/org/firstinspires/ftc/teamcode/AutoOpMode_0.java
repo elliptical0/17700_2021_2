@@ -21,6 +21,8 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     private boolean b;
 
+    public boolean VISION_ENABLED = true;
+
     public void changeState(int i) {
         state = i;
         stateStartTime = currentTime;
@@ -32,7 +34,8 @@ public class AutoOpMode_0 extends BaseOpMode {
             new Transform(62, 12, 0),
             new Transform(86, 36, 0),
             new Transform(120, 12, 0),
-            SHOOTING_T
+            SHOOTING_T,
+            new Transform(82, SHOOTING_T.pos.y, 0)
     };
 
     public void moveState(int i) {
@@ -67,25 +70,32 @@ public class AutoOpMode_0 extends BaseOpMode {
         wheelPowers = D;
         switch(state) {
             case 0:
-                startVision();
+                if(VISION_ENABLED) {
+                    startVision();
+                }
                 moveState(0);
                 break;
             case 1:
                 moveState(1);
                 break;
             case 2:
-                if(cam.getFps() > 0.0) {
-                    changeState(3);
+                if(VISION_ENABLED) {
+                    if (cam.getFps() > 0.0) {
+                        changeState(3);
+                    }
+                } else {
+                    changeState(4);
                 }
                 break;
             case 3:
-                telemetry.addData("Stack Size:", filter.stackSize);
-                telemetry.addData("Image Area", filter.hsvThresholdOutput().height() * filter.hsvThresholdOutput().width());
-                telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());
-                telemetry.addData("Filtered Contour Count:", filter.filterContoursOutput().size());
-                telemetry.addData("LastRatio:", filter.lastRatio);
-                telemetry.addData("FPS:", cam.getFps());
-
+                if(VISION_ENABLED) {
+                    telemetry.addData("Stack Size:", filter.stackSize);
+                    telemetry.addData("Image Area", filter.hsvThresholdOutput().height() * filter.hsvThresholdOutput().width());
+                    telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());
+                    telemetry.addData("Filtered Contour Count:", filter.filterContoursOutput().size());
+                    telemetry.addData("LastRatio:", filter.lastRatio);
+                    telemetry.addData("FPS:", cam.getFps());
+                }
                 if(currentTime - stateStartTime > 3000 && SERVOS_ACTIVE) { //|| stackSize != 0) {
                     changeState(4);
                 }
@@ -96,16 +106,20 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 5:
                 wobbleAimIndex = 2;
-                switch(filter.stackSize) {
-                    case 1:
-                        changeState(8);
-                        break;
-                    case 4:
-                        changeState(9);
-                        break;
-                    default:
-                        changeState(7);
-                        break;
+                if(VISION_ENABLED) {
+                    switch (filter.stackSize) {
+                        case 1:
+                            changeState(8);
+                            break;
+                        case 4:
+                            changeState(9);
+                            break;
+                        default:
+                            changeState(7);
+                            break;
+                    }
+                } else {
+                    changeState(7);
                 }
             case 7:
                 moveState(3, 10);
@@ -133,13 +147,16 @@ public class AutoOpMode_0 extends BaseOpMode {
                 moveState(6);
                 break;
             case 13:
-                if(currentTime > 29500) {
-                    changeState(99);
+                if(currentTime > 27000) {
+                    changeState(14);
                 } else if(currentTime - stateStartTime > 3000) {
                     powerIntake(false, true, false);
                 } else if(currentTime - stateStartTime > 700) {
                     wobbleHandIndex = 0;
                 }
+                break;
+            case 14:
+                moveState(7, 99);
                 break;
             case 23:
                 if(shotsFired < 3) {
