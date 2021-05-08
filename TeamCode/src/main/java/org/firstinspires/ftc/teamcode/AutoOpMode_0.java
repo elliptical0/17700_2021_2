@@ -21,7 +21,7 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     private boolean b;
 
-    public boolean VISION_ENABLED = true;
+    public boolean VISION_ENABLED = false;
 
     public void changeState(int i) {
         state = i;

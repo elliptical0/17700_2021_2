@@ -9,6 +9,5 @@ public class AutoOpMode_1 extends AutoOpMode_0 {
     public void initialize() {
         VISION_ENABLED = false;
         super.initialize();
-        resetPosition(0);
     }
 }
