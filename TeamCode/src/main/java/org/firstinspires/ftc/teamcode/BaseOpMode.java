@@ -89,6 +89,8 @@ public class BaseOpMode extends LinearOpMode {
     public void updateTelemetry() {
         telemetry.addData("Transform", transform);
         telemetry.addData("Build Name:", BUILD_NAME);
+        telemetry.addData("DeltaTime:", deltaTime);
+        if(SERVOS_ACTIVE) { telemetry.addData("FlywheelRPM:", flywheelRPM); }
         telemetry.addData("", "");
         telemetry.addData("To calibrate", "drag the robot forward " + CALIB_DIST + " inches (and do nothing else) and read the value below.");
         telemetry.addData("DEADWHEEL_RADIUS (" + CALIB_DIST + ")", CALIB_DIST / (2 * Math.PI * ((encoderPos[0] + encoderPos[1]) / 2) / TICKS_PER_REV));
@@ -164,7 +166,7 @@ public class BaseOpMode extends LinearOpMode {
 
     public void updateLaunchAim() {
         for(i = 0; i < 2; i++) {
-            launchAim[i].setPosition(LAUNCH_AIM_POSITIONS[launchIndex]);
+            launchAim[i].setPosition(LAUNCH_AIM_POSITIONS[launchIndex] + LAUNCH_ADJUST[i]);
         }
         counterweight.setPosition(COUNTERWEIGHT_POSITIONS[launchIndex]);
     }

@@ -38,6 +38,18 @@ public class AutoOpMode_0 extends BaseOpMode {
             new Transform(82, SHOOTING_T.pos.y, 0)
     };
 
+    /*
+    public final Transform[] transforms = {STARTING_T[STARTING_T_I],
+            STARTING_T[STARTING_T_I],
+            STARTING_T[STARTING_T_I],
+            STARTING_T[STARTING_T_I],
+            STARTING_T[STARTING_T_I],
+            STARTING_T[STARTING_T_I],
+            STARTING_T[STARTING_T_I],
+            STARTING_T[STARTING_T_I]
+    };
+     */
+
     public void moveState(int i) {
         moveState(i, state + 1);
     }

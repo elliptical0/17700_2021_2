@@ -68,7 +68,9 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.25125};
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.255}; //0.25125
+
+    public static final double[] LAUNCH_ADJUST = {0, 0.05};
 
     /**
      *
@@ -94,17 +96,19 @@ public class Constants {
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
-    public static final double FLYWHEEL_MAX_RPM = 650;
+    public static final double FLYWHEEL_MAX_RPM = 4300;
 
     public static final double FILTER_MIN_AREA = 0;
 
-    public static final double FILTER_HUE_HIGH = 48;
+    public static final double FILTER_HUE_HIGH = 38;
 
-    public static final double FILTER_SATURATION_LOW = 57;
+    public static final double FILTER_SATURATION_LOW = 65;
 
-    public static final double FILTER_VALUE_LOW = 0;
+    public static final double FILTER_VALUE_LOW = 30;
 
     public static final double FILTER_RATIO = 1.6;
 
-    public static final String BUILD_NAME = "v0.15.11";
+    public static final double FILTER_MIN_X = 480;
+
+    public static final String BUILD_NAME = "v0.16.0";
 }

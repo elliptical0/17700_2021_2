@@ -152,10 +152,10 @@ import static org.firstinspires.ftc.teamcode.Constants.*;
      /**
       * Estimate instantaneous RPM of an encoded motor.
       * @param denc delta encoder
-      * @param dt delta time
+      * @param dt delta time ms
       * @return estimated RPM
       */
      public static double calculateRPM(double denc, double dt) {
-         return ((denc / 28) * 60) * dt;
+         return ((denc / 28) * 60) / (dt / 1000);
      }
  }

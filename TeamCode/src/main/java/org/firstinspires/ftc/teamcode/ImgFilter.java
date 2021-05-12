@@ -303,13 +303,17 @@ public class ImgFilter extends OpenCvPipeline {
 						break;
 					}
 				}
-				double ratio = (double) bb.height / bb.width;
-				if (ratio < FILTER_RATIO) {
-					stackSize = 4;
+				if(bb.x > FILTER_MIN_X) {
+					double ratio = (double) bb.height / bb.width;
+					if (ratio < FILTER_RATIO) {
+						stackSize = 4;
+					} else {
+						stackSize = 1;
+					}
+					lastRatio = ratio;
 				} else {
-					stackSize = 1;
+					stackSize = 0;
 				}
-				lastRatio = ratio;
 			}
 		}
 	}
