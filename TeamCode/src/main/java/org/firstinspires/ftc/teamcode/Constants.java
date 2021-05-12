@@ -98,17 +98,21 @@ public class Constants {
 
     public static final double FLYWHEEL_MAX_RPM = 4300;
 
+    @Deprecated
     public static final double FILTER_MIN_AREA = 0;
 
+    @Deprecated
     public static final double FILTER_HUE_HIGH = 38;
 
+    @Deprecated
     public static final double FILTER_SATURATION_LOW = 65;
 
+    @Deprecated
     public static final double FILTER_VALUE_LOW = 30;
 
     public static final double FILTER_RATIO = 1.6;
 
     public static final double FILTER_MIN_X = -1;
 
-    public static final String BUILD_NAME = "v0.16.0";
+    public static final String BUILD_NAME = "v0.17.0";
 }
