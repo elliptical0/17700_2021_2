@@ -7,7 +7,8 @@ import org.opencv.core.*;
 import org.opencv.imgproc.*;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-import static org.firstinspires.ftc.teamcode.Constants.*;
+import static org.firstinspires.ftc.teamcode.Constants.FILTER_MIN_X;
+import static org.firstinspires.ftc.teamcode.Constants.FILTER_RATIO;
 
 /**
 * ImgFilter class.
@@ -19,78 +20,176 @@ import static org.firstinspires.ftc.teamcode.Constants.*;
 public class ImgFilter extends OpenCvPipeline {
 
 	//Outputs
-	private Mat blurOutput = new Mat();
-	private Mat hsvThresholdOutput = new Mat();
+	private Mat resizeImageOutput = new Mat();
+	private Point newPoint0Output = new Point();
+	private Point newPoint1Output = new Point();
+	private Mat cvRectangleOutput = new Mat();
+	private Mat cvExtractchannel0Output = new Mat();
+	private Mat cvExtractchannel1Output = new Mat();
+	private Mat cvSubtractOutput = new Mat();
+	private Mat cvThresholdOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
-	private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
+	private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
 
 	public int stackSize = 0;
 	public double lastRatio = 0;
 
+	/*
+	static {
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+	}
+	 */
+
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
-	 * @return
 	 */
 	@Override
 	public Mat processFrame(Mat source0) {
-		// Step Blur0:
-		Mat blurInput = source0;
-		BlurType blurType = BlurType.get("Box Blur");
-		double blurRadius = 8;
-		blur(blurInput, blurType, blurRadius, blurOutput);
+		/*
+		// Step Resize_Image0:
+		Mat resizeImageInput = source0;
+		double resizeImageWidth = 640;
+		double resizeImageHeight = 480;
+		int resizeImageInterpolation = Imgproc.INTER_CUBIC;
+		resizeImage(resizeImageInput, resizeImageWidth, resizeImageHeight, resizeImageInterpolation, resizeImageOutput);
+		 */
+		resizeImageOutput = source0;
 
-		// Step HSV_Threshold0:
-		Mat hsvThresholdInput = blurOutput;
-		double[] hsvThresholdHue = {0.0, FILTER_HUE_HIGH};
-		double[] hsvThresholdSaturation = {FILTER_SATURATION_LOW, 255.0};
-		double[] hsvThresholdValue = {FILTER_VALUE_LOW, 255.0};
-		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
+		// Step New_Point0:
+		double newPoint0X = 0.0;
+		double newPoint0Y = 0.0;
+		newPoint(newPoint0X, newPoint0Y, newPoint0Output);
+
+		// Step New_Point1:
+		double newPoint1X = 250.0;
+		double newPoint1Y = 480.0;
+		newPoint(newPoint1X, newPoint1Y, newPoint1Output);
+
+		// Step CV_rectangle0:
+		Mat cvRectangleSrc = resizeImageOutput;
+		Point cvRectanglePt1 = newPoint0Output;
+		Point cvRectanglePt2 = newPoint1Output;
+		Scalar cvRectangleColor = new Scalar(0.0, 0.0, 0.0, 0.0);
+		double cvRectangleThickness = 400.0;
+		int cvRectangleLinetype = Core.FILLED;
+		double cvRectangleShift = 0.0;
+		cvRectangle(cvRectangleSrc, cvRectanglePt1, cvRectanglePt2, cvRectangleColor, cvRectangleThickness, cvRectangleLinetype, cvRectangleShift, cvRectangleOutput);
+
+		// Step CV_extractChannel0:
+		Mat cvExtractchannel0Src = cvRectangleOutput;
+		double cvExtractchannel0Channel = 2.0;
+		cvExtractchannel(cvExtractchannel0Src, cvExtractchannel0Channel, cvExtractchannel0Output);
+
+		// Step CV_extractChannel1:
+		Mat cvExtractchannel1Src = cvRectangleOutput;
+		double cvExtractchannel1Channel = 0.0;
+		cvExtractchannel(cvExtractchannel1Src, cvExtractchannel1Channel, cvExtractchannel1Output);
+
+		// Step CV_subtract0:
+		Mat cvSubtractSrc1 = cvExtractchannel0Output;
+		Mat cvSubtractSrc2 = cvExtractchannel1Output;
+		cvSubtract(cvSubtractSrc1, cvSubtractSrc2, cvSubtractOutput);
+
+		// Step CV_Threshold0:
+		Mat cvThresholdSrc = cvSubtractOutput;
+		double cvThresholdThresh = 25.0;
+		double cvThresholdMaxval = 255.0;
+		int cvThresholdType = Imgproc.THRESH_BINARY;
+		cvThreshold(cvThresholdSrc, cvThresholdThresh, cvThresholdMaxval, cvThresholdType, cvThresholdOutput);
 
 		// Step Find_Contours0:
-		Mat findContoursInput = hsvThresholdOutput;
+		Mat findContoursInput = cvThresholdOutput;
 		boolean findContoursExternalOnly = true;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
 
-		// Step Convex_Hulls0:
-		ArrayList<MatOfPoint> convexHullsContours = findContoursOutput;
-		convexHulls(convexHullsContours, convexHullsOutput);
-
 		// Step Filter_Contours0:
-		ArrayList<MatOfPoint> filterContoursContours = convexHullsOutput;
-		double filterContoursMinArea = FILTER_MIN_AREA;
-		double filterContoursMinPerimeter = 0.0;
-		double filterContoursMinWidth = 0.0;
-		double filterContoursMaxWidth = 1000.0;
-		double filterContoursMinHeight = 0.0;
-		double filterContoursMaxHeight = 1000.0;
+		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
+		double filterContoursMinArea = 2000.0;
+		double filterContoursMinPerimeter = 0;
+		double filterContoursMinWidth = 0;
+		double filterContoursMaxWidth = 1000;
+		double filterContoursMinHeight = 0;
+		double filterContoursMaxHeight = 1000;
 		double[] filterContoursSolidity = {0, 100};
-		double filterContoursMaxVertices = 1000000.0;
-		double filterContoursMinVertices = 0.0;
-		double filterContoursMinRatio = 0.0;
-		double filterContoursMaxRatio = 1000.0;
+		double filterContoursMaxVertices = 1000000;
+		double filterContoursMinVertices = 0;
+		double filterContoursMinRatio = 0;
+		double filterContoursMaxRatio = 1000;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 
+		// Step Convex_Hulls0:
+		ArrayList<MatOfPoint> convexHullsContours = filterContoursOutput;
+		convexHulls(convexHullsContours, convexHullsOutput);
+
 		// Step FindRings:
-		findRings(filterContoursOutput);
+		findRings(convexHullsOutput);
 
-		return source0;
+		return cvThresholdOutput;
 	}
 
 	/**
-	 * This method is a generated getter for the output of a Blur.
-	 * @return Mat output from Blur.
+	 * This method is a generated getter for the output of a Resize_Image.
+	 * @return Mat output from Resize_Image.
 	 */
-	public Mat blurOutput() {
-		return blurOutput;
+	public Mat resizeImageOutput() {
+		return resizeImageOutput;
 	}
 
 	/**
-	 * This method is a generated getter for the output of a HSV_Threshold.
-	 * @return Mat output from HSV_Threshold.
+	 * This method is a generated getter for the output of a New_Point.
+	 * @return Point output from New_Point.
 	 */
-	public Mat hsvThresholdOutput() {
-		return hsvThresholdOutput;
+	public Point newPoint0Output() {
+		return newPoint0Output;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a New_Point.
+	 * @return Point output from New_Point.
+	 */
+	public Point newPoint1Output() {
+		return newPoint1Output;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a CV_rectangle.
+	 * @return Mat output from CV_rectangle.
+	 */
+	public Mat cvRectangleOutput() {
+		return cvRectangleOutput;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a CV_extractChannel.
+	 * @return Mat output from CV_extractChannel.
+	 */
+	public Mat cvExtractchannel0Output() {
+		return cvExtractchannel0Output;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a CV_extractChannel.
+	 * @return Mat output from CV_extractChannel.
+	 */
+	public Mat cvExtractchannel1Output() {
+		return cvExtractchannel1Output;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a CV_subtract.
+	 * @return Mat output from CV_subtract.
+	 */
+	public Mat cvSubtractOutput() {
+		return cvSubtractOutput;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a CV_Threshold.
+	 * @return Mat output from CV_Threshold.
+	 */
+	public Mat cvThresholdOutput() {
+		return cvThresholdOutput;
 	}
 
 	/**
@@ -102,14 +201,6 @@ public class ImgFilter extends OpenCvPipeline {
 	}
 
 	/**
-	 * This method is a generated getter for the output of a Convex_Hulls.
-	 * @return ArrayList<MatOfPoint> output from Convex_Hulls.
-	 */
-	public ArrayList<MatOfPoint> convexHullsOutput() {
-		return convexHullsOutput;
-	}
-
-	/**
 	 * This method is a generated getter for the output of a Filter_Contours.
 	 * @return ArrayList<MatOfPoint> output from Filter_Contours.
 	 */
@@ -117,93 +208,98 @@ public class ImgFilter extends OpenCvPipeline {
 		return filterContoursOutput;
 	}
 
-
 	/**
-	 * An indication of which type of filter to use for a blur.
-	 * Choices are BOX, GAUSSIAN, MEDIAN, and BILATERAL
+	 * This method is a generated getter for the output of a Convex_Hulls.
+	 * @return ArrayList<MatOfPoint> output from Convex_Hulls.
 	 */
-	enum BlurType{
-		BOX("Box Blur"), GAUSSIAN("Gaussian Blur"), MEDIAN("Median Filter"),
-			BILATERAL("Bilateral Filter");
-
-		private final String label;
-
-		BlurType(String label) {
-			this.label = label;
-		}
-
-		public static BlurType get(String type) {
-			if (BILATERAL.label.equals(type)) {
-				return BILATERAL;
-			}
-			else if (GAUSSIAN.label.equals(type)) {
-			return GAUSSIAN;
-			}
-			else if (MEDIAN.label.equals(type)) {
-				return MEDIAN;
-			}
-			else {
-				return BOX;
-			}
-		}
-
-		@Override
-		public String toString() {
-			return this.label;
-		}
+	public ArrayList<MatOfPoint> convexHullsOutput() {
+		return convexHullsOutput;
 	}
 
+
 	/**
-	 * Softens an image using one of several filters.
-	 * @param input The image on which to perform the blur.
-	 * @param type The blurType to perform.
-	 * @param doubleRadius The radius for the blur.
+	 * Scales and image to an exact size.
+	 * @param input The image on which to perform the Resize.
+	 * @param width The width of the output in pixels.
+	 * @param height The height of the output in pixels.
+	 * @param interpolation The type of interpolation.
 	 * @param output The image in which to store the output.
 	 */
-	private void blur(Mat input, BlurType type, double doubleRadius,
-		Mat output) {
-		int radius = (int)(doubleRadius + 0.5);
-		int kernelSize;
-		switch(type){
-			case BOX:
-				kernelSize = 2 * radius + 1;
-				Imgproc.blur(input, output, new Size(kernelSize, kernelSize));
-				break;
-			case GAUSSIAN:
-				kernelSize = 6 * radius + 1;
-				Imgproc.GaussianBlur(input,output, new Size(kernelSize, kernelSize), radius);
-				break;
-			case MEDIAN:
-				kernelSize = 2 * radius + 1;
-				Imgproc.medianBlur(input, output, kernelSize);
-				break;
-			case BILATERAL:
-				Imgproc.bilateralFilter(input, output, -1, radius, radius);
-				break;
-		}
+	private void resizeImage(Mat input, double width, double height,
+		int interpolation, Mat output) {
+		Imgproc.resize(input, output, new Size(width, height), 0.0, 0.0, interpolation);
 	}
 
 	/**
-	 * Segment an image based on hue, saturation, and value ranges.
-	 *
-	 * @param input The image on which to perform the HSL threshold.
-	 * @param hue The min and max hue
-	 * @param sat The min and max saturation
-	 * @param val The min and max value
-	 * @param out The image in which to store the output.
+	 * Fills a point with given x and y values.
+	 * @param x the x value to put in the point
+	 * @param y the y value to put in the point
+	 * @param point the point to fill
 	 */
-	private void hsvThreshold(Mat input, double[] hue, double[] sat, double[] val,
-	    Mat out) {
-		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
-			new Scalar(hue[1], sat[1], val[1]), out);
+	private void newPoint(double x, double y, Point point) {
+		point.x = x;
+		point.y = y;
+	}
+
+	/**
+	 * Draws a rectangle on an image.
+	 * @param src Image to draw rectangle on.
+	 * @param pt1 one corner of the rectangle.
+	 * @param pt2 opposite corner of the rectangle.
+	 * @param color Scalar indicating color to make the rectangle.
+	 * @param thickness Thickness of the lines of the rectangle.
+	 * @param lineType Type of line for the rectangle.
+	 * @param shift Number of decimal places in the points.
+	 * @param dst output image.
+	 */
+	private void cvRectangle(Mat src, Point pt1, Point pt2, Scalar color,
+		double thickness, int lineType, double shift, Mat dst) {
+		src.copyTo(dst);
+		if (color == null) {
+			color = Scalar.all(1.0);
+		}
+		Imgproc.rectangle(dst, pt1, pt2, color, (int)thickness, lineType, (int)shift);
+	}
+
+	/**
+	 * Extracts given channel from an image.
+	 * @param src the image to extract.
+	 * @param channel zero indexed channel number to extract.
+	 * @param dst output image.
+	 */
+	private void cvExtractchannel(Mat src, double channel, Mat dst) {
+		Core.extractChannel(src, dst, (int)channel);
+	}
+
+	/**
+	 * Subtracts the second Mat from the first.
+	 * @param src1 the first Mat
+	 * @param src2 the second Mat
+	 * @param out the Mat that is the subtraction of the two Mats
+	 */
+	private void cvSubtract(Mat src1, Mat src2, Mat out) {
+		Core.subtract(src1, src2, out);
+	}
+
+	/**
+	 * Apply a fixed-level threshold to each array element in an image.
+	 * @param src Image to threshold.
+	 * @param threshold threshold value.
+	 * @param maxVal Maximum value for THRES_BINARY and THRES_BINARY_INV
+	 * @param type Type of threshold to appy.
+	 * @param dst output Image.
+	 */
+	private void cvThreshold(Mat src, double threshold, double maxVal, int type,
+		Mat dst) {
+		Imgproc.threshold(src, dst, threshold, maxVal, type);
 	}
 
 	/**
 	 * Sets the values of pixels in a binary image to their distance to the nearest black pixel.
 	 * @param input The image on which to perform the Distance Transform.
-	 * @param externalOnly The Transform.
-	 * @param contours the size of the mask.
+	 *  type The Transform.
+	 *  maskSize the size of the mask.
+	 *  output The image in which to store the output.
 	 */
 	private void findContours(Mat input, boolean externalOnly,
 		List<MatOfPoint> contours) {
@@ -220,29 +316,6 @@ public class ImgFilter extends OpenCvPipeline {
 		Imgproc.findContours(input, contours, hierarchy, mode, method);
 	}
 
-	/**
-	 * Compute the convex hulls of contours.
-	 * @param inputContours The contours on which to perform the operation.
-	 * @param outputContours The contours where the output will be stored.
-	 */
-	private void convexHulls(List<MatOfPoint> inputContours,
-		ArrayList<MatOfPoint> outputContours) {
-		final MatOfInt hull = new MatOfInt();
-		outputContours.clear();
-		for (int i = 0; i < inputContours.size(); i++) {
-			final MatOfPoint contour = inputContours.get(i);
-			final MatOfPoint mopHull = new MatOfPoint();
-			Imgproc.convexHull(contour, hull);
-			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
-			for (int j = 0; j < hull.size().height; j++) {
-				int index = (int) hull.get(j, 0)[0];
-				double[] point = new double[] {contour.get(index, 0)[0], contour.get(index, 0)[1]};
-				mopHull.put(j, 0, point);
-			}
-			outputContours.add(mopHull);
-		}
-	}
-
 
 	/**
 	 * Filters out contours that do not meet certain criteria.
@@ -254,7 +327,7 @@ public class ImgFilter extends OpenCvPipeline {
 	 * @param maxWidth maximum width
 	 * @param minHeight minimum height
 	 * @param maxHeight maximimum height
-	 * @param solidity the minimum and maximum solidity of a contour
+	 *  Solidity the minimum and maximum solidity of a contour
 	 * @param minVertexCount minimum vertex Count of the contours
 	 * @param maxVertexCount maximum vertex Count
 	 * @param minRatio minimum ratio of width to height
@@ -292,6 +365,29 @@ public class ImgFilter extends OpenCvPipeline {
 		}
 	}
 
+	/**
+	 * Compute the convex hulls of contours.
+	 * @param inputContours The contours on which to perform the operation.
+	 * @param outputContours The contours where the output will be stored.
+	 */
+	private void convexHulls(List<MatOfPoint> inputContours,
+		ArrayList<MatOfPoint> outputContours) {
+		final MatOfInt hull = new MatOfInt();
+		outputContours.clear();
+		for (int i = 0; i < inputContours.size(); i++) {
+			final MatOfPoint contour = inputContours.get(i);
+			final MatOfPoint mopHull = new MatOfPoint();
+			Imgproc.convexHull(contour, hull);
+			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
+			for (int j = 0; j < hull.size().height; j++) {
+				int index = (int) hull.get(j, 0)[0];
+				double[] point = new double[] {contour.get(index, 0)[0], contour.get(index, 0)[1]};
+				mopHull.put(j, 0, point);
+			}
+			outputContours.add(mopHull);
+		}
+	}
+
 	private void findRings(List<MatOfPoint> inputContours) {
 		if(!inputContours.isEmpty()) {
 			if(null != inputContours.get(0)) {
@@ -320,3 +416,4 @@ public class ImgFilter extends OpenCvPipeline {
 
 
 }
+

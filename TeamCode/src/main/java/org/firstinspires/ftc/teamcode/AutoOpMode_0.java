@@ -102,7 +102,6 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 3:
                 if(VISION_ENABLED) {
                     telemetry.addData("Stack Size:", filter.stackSize);
-                    telemetry.addData("Image Area", filter.hsvThresholdOutput().height() * filter.hsvThresholdOutput().width());
                     telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());
                     telemetry.addData("Filtered Contour Count:", filter.filterContoursOutput().size());
                     telemetry.addData("LastRatio:", filter.lastRatio);
