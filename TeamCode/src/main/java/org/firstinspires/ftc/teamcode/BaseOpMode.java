@@ -45,6 +45,11 @@ public class BaseOpMode extends LinearOpMode {
     Servo[] launchAim = new Servo[2]; //Must be in unison
     int launchIndex = 0;
 
+    //hardwareMap.get()
+
+    enum stackSize {NULL, ZERO, ONE, FOUR};
+    stackSize[] colorSensorHistory = new stackSize[6];
+
     ImgFilter filter;
     ArrayList<MatOfPoint> rings;
     OpenCvCamera cam;

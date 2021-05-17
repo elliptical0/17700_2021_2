@@ -75,7 +75,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333};
+    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333, 1, 1, 1, 1};
 
     /**
      *
@@ -114,5 +114,5 @@ public class Constants {
 
     public static final double FILTER_MIN_X = -1;
 
-    public static final String BUILD_NAME = "v0.18.0";
+    public static final String BUILD_NAME = "v0.18.1";
 }
