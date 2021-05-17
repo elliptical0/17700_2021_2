@@ -21,15 +21,15 @@ public class AutoOpMode_0 extends BaseOpMode {
 
     private boolean b;
 
-    public boolean VISION_ENABLED = true;
+    public boolean VISION_ENABLED = false;
 
     public void changeState(int i) {
         state = i;
         stateStartTime = currentTime;
     }
 
-    public final Transform[] transforms = {new Transform(22.2, 16.5, 0),
-            new Transform(22.2, 16.5, -0.462),
+    public final Transform[] transforms = {new Transform(38, 30.5, 0),
+            new Transform(38, 30.5, 0), //new Transform(22.2, 16.5, -0.462)
             new Transform(50, 20, 0),
             new Transform(62, 12, 0),
             new Transform(86, 36, 0),

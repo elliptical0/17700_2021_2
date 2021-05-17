@@ -68,7 +68,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.255}; //0.25125
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.2, 0.175, 0.15, 0.125, 0.1}; //0.25125
 
     public static final double[] LAUNCH_ADJUST = {0, 0.05};
 
@@ -114,5 +114,5 @@ public class Constants {
 
     public static final double FILTER_MIN_X = -1;
 
-    public static final String BUILD_NAME = "v0.17.0";
+    public static final String BUILD_NAME = "v0.18.0";
 }
