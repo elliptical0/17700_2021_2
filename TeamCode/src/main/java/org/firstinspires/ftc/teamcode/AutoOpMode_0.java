@@ -29,7 +29,7 @@ public class AutoOpMode_0 extends BaseOpMode {
     }
 
     public final Transform[] transforms = {new Transform(33, 30.5, 0),
-            new Transform(33, 30.5, 0), //new Transform(22.2, 16.5, -0.462)
+            new Transform(33, 25, 0), //new Transform(22.2, 16.5, -0.462)
             new Transform(50, 20, 0),
             new Transform(62, 12, 0),
             new Transform(86, 36, 0),
@@ -88,28 +88,45 @@ public class AutoOpMode_0 extends BaseOpMode {
                 moveState(0);
                 break;
             case 1:
-                moveState(1);
-                break;
-            case 2:
                 if(VISION_ENABLED) {
                     if (cam.getFps() > 0.0) {
-                        changeState(3);
+                        changeState(2);
                     }
                 } else {
-                    changeState(4);
+                    changeState(2);
                 }
                 break;
-            case 3:
-                if(VISION_ENABLED) {
+            case 2:
+                if(COLOR_ENABLED) {
+                    readColorSensors();
+                    if(stackSize != 0) {
+                        changeState(3);
+                    }
+                } else if(VISION_ENABLED) {
                     telemetry.addData("Stack Size:", filter.stackSize);
                     telemetry.addData("Unfiltered Contour Count:", filter.findContoursOutput().size());
                     telemetry.addData("Filtered Contour Count:", filter.filterContoursOutput().size());
                     telemetry.addData("LastRatio:", filter.lastRatio);
                     telemetry.addData("FPS:", cam.getFps());
+                    if(currentTime - stateStartTime > 3000 && SERVOS_ACTIVE) { //|| stackSize != 0) {
+                        stackSize = filter.stackSize;
+                        if(filter.stackSize == 4) {
+                            stackSize = 3;
+                        } else if(filter.stackSize == 1) {
+                            stackSize = 2;
+                        } else {
+                            stackSize = 1;
+                        }
+                        changeState(3);
+                    }
+                } else {
+                    if(currentTime - stateStartTime > 1000) {
+                        changeState(3);
+                    }
                 }
-                if(currentTime - stateStartTime > 3000 && SERVOS_ACTIVE) { //|| stackSize != 0) {
-                    changeState(4);
-                }
+                break;
+            case 3:
+                moveState(1);
                 break;
             case 4:
                 wobbleAimIndex = 1;
@@ -118,20 +135,18 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 5:
                 wobbleAimIndex = 2;
                 if(VISION_ENABLED) {
-                    switch (filter.stackSize) {
-                        case 1:
+                    switch (stackSize) {
+                        case 2:
                             changeState(8);
-                            break;
-                        case 4:
+                        case 3:
                             changeState(9);
-                            break;
                         default:
                             changeState(7);
-                            break;
                     }
                 } else {
                     changeState(7);
                 }
+                break;
             case 7:
                 moveState(3, 10);
                 break;
@@ -189,6 +204,9 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 99:
+                break;
+            default:
+                changeState(99);
                 break;
         }
         if(SERVOS_ACTIVE) {

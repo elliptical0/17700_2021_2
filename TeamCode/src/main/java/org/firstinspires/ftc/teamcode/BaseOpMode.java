@@ -175,7 +175,7 @@ public class BaseOpMode extends LinearOpMode {
         counterweight.setPosition(COUNTERWEIGHT_POSITIONS[launchIndex]);
     }
 
-    public void readStackSize() {
+    public void readColorSensors() {
         if(colorSensorHistoryIndex < colorSensorHistory.length) {
             boolean[] detected = {false, false};
             int[] color;
@@ -197,7 +197,6 @@ public class BaseOpMode extends LinearOpMode {
             }
             colorSensorHistoryIndex++;
         }
-
         if(colorSensorHistoryIndex >= colorSensorHistory.length) {
             int[] tally = new int[3];
             for(int n : colorSensorHistory) {
@@ -266,7 +265,7 @@ public class BaseOpMode extends LinearOpMode {
                 launchAim[i].setDirection(i == 0 ? Servo.Direction.REVERSE : Servo.Direction.FORWARD);
             }
         }
-        if(COLOR_ACTIVE) {
+        if(COLOR_ENABLED) {
             for (i = 0; i < 2; i++) {
                 colorSensors[i] = hardwareMap.get(ColorSensor.class, "color" + i);
             }
