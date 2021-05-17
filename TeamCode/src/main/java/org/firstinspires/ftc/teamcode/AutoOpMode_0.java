@@ -97,7 +97,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 2:
-                if(COLOR_ENABLED) {
+                if(COLOR_ACTIVE) {
                     readColorSensors();
                     if(stackSize != 0) {
                         changeState(3);

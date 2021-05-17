@@ -68,14 +68,14 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.205, 0.2025, 0.2}; //0.25125
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.205}; //0.25125
 
     public static final double[] LAUNCH_ADJUST = {0, 0.05};
 
     /**
      *
      */
-    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333, 0.3333, 0.3333};
+    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333};
 
     /**
      *
@@ -94,7 +94,7 @@ public class Constants {
 
     public static final boolean SERVOS_ACTIVE = true;
 
-    public static final boolean COLOR_ENABLED = true;
+    public static final boolean COLOR_ACTIVE = true;
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
@@ -119,5 +119,5 @@ public class Constants {
     //ring color
     public static final int[][] RCOLOR = {{200, 100, 0}, {255, 225, 30}};
 
-    public static final String BUILD_NAME = "v0.19.1";
+    public static final String BUILD_NAME = "v0.19.2";
 }

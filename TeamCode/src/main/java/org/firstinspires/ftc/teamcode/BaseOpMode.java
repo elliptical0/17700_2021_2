@@ -95,6 +95,10 @@ public class BaseOpMode extends LinearOpMode {
         telemetry.addData("Build Name:", BUILD_NAME);
         telemetry.addData("DeltaTime:", deltaTime);
         if(SERVOS_ACTIVE) { telemetry.addData("FlywheelRPM:", flywheelRPM); }
+        if(COLOR_ACTIVE) {
+            telemetry.addData("ColorSensor0", colorSensors[0].red() + ", " + colorSensors[0].green() + ", " + colorSensors[0].blue());
+            telemetry.addData("ColorSensor1", colorSensors[1].red() + ", " + colorSensors[1].green() + ", " + colorSensors[1].blue());
+        }
         telemetry.addData("", "");
         telemetry.addData("To calibrate", "drag the robot forward " + CALIB_DIST + " inches (and do nothing else) and read the value below.");
         telemetry.addData("DEADWHEEL_RADIUS (" + CALIB_DIST + ")", CALIB_DIST / (2 * Math.PI * ((encoderPos[0] + encoderPos[1]) / 2) / TICKS_PER_REV));
@@ -265,7 +269,7 @@ public class BaseOpMode extends LinearOpMode {
                 launchAim[i].setDirection(i == 0 ? Servo.Direction.REVERSE : Servo.Direction.FORWARD);
             }
         }
-        if(COLOR_ENABLED) {
+        if(COLOR_ACTIVE) {
             for (i = 0; i < 2; i++) {
                 colorSensors[i] = hardwareMap.get(ColorSensor.class, "color" + i);
             }
