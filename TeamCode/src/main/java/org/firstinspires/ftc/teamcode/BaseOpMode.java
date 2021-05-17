@@ -183,7 +183,7 @@ public class BaseOpMode extends LinearOpMode {
                 color = new int[]{colorSensors[i].red(), colorSensors[i].green(), colorSensors[i].blue()};
                 for(int n = 0; n < 3; n++) {
                     if(color[n] < RCOLOR[0][n] || color[n] > RCOLOR[1][n]) {
-                        break outer;
+                        continue outer;
                     }
                 }
                 detected[i] = true;
@@ -205,12 +205,12 @@ public class BaseOpMode extends LinearOpMode {
                 }
             }
             int highest = 0;
-            for(i = 1; i < 4; i++) {
+            for(i = 1; i < tally.length; i++) {
                 if(tally[i] > tally[highest]) {
                     highest = i;
                 }
             }
-            stackSize = highest;
+            stackSize = highest + 1;
         }
     }
 
