@@ -49,7 +49,7 @@ public class BaseOpMode extends LinearOpMode {
     ColorSensor[] colorSensors = new ColorSensor[2];
 
     int stackSize = 0; //0: NULL  1: ZERO  2: ONE  3: FOUR
-    int[] colorSensorHistory = new int[10];
+    int[] colorSensorHistory = new int[25];
     int colorSensorHistoryIndex = 0;
 
     ImgFilter filter;
@@ -182,6 +182,8 @@ public class BaseOpMode extends LinearOpMode {
     public void readColorSensors() {
         if(colorSensorHistoryIndex < colorSensorHistory.length) {
             boolean[] detected = {false, false};
+
+            /*
             int[] color;
             outer: for(i = 0; i < 2; i++) {
                 color = new int[]{colorSensors[i].red(), colorSensors[i].green(), colorSensors[i].blue()};
@@ -192,6 +194,11 @@ public class BaseOpMode extends LinearOpMode {
                 }
                 detected[i] = true;
             }
+             */
+            for(i = 0; i < 2; i++) {
+                detected[i] = (double) colorSensors[i].red() / colorSensors[i].blue() > RED_TO_BLUE_MIN_RATIO;
+            }
+
             if(detected[0] && detected[1]) {
                 colorSensorHistory[colorSensorHistoryIndex] = 3;
             } else if(detected[0] || detected[1]) {

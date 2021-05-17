@@ -68,7 +68,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.205}; //0.25125
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.202}; //0.25125
 
     public static final double[] LAUNCH_ADJUST = {0, 0.05};
 
@@ -116,8 +116,10 @@ public class Constants {
 
     public static final double FILTER_MIN_X = -1;
 
-    //ring color
-    public static final int[][] RCOLOR = {{200, 100, 0}, {255, 225, 30}};
+    //ring color target: 181, 239, 164
+    public static final int[][] RCOLOR = {{781, 117, 94}, {2019, 1967, 626}};
 
-    public static final String BUILD_NAME = "v0.19.2";
+    public static final double RED_TO_BLUE_MIN_RATIO = 3;
+
+    public static final String BUILD_NAME = "v0.19.4";
 }
