@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -45,15 +46,15 @@ public class BaseOpMode extends LinearOpMode {
     Servo[] launchAim = new Servo[2]; //Must be in unison
     int launchIndex = 0;
 
-    //hardwareMap.get()
+    ColorSensor[] colorSensors = new ColorSensor[2];
 
-    enum stackSize {NULL, ZERO, ONE, FOUR};
-    stackSize[] colorSensorHistory = new stackSize[6];
+    int stackSize = 0; //0: NULL  1: ZERO  2: ONE  3: FOUR
+    int[] colorSensorHistory = new int[10];
+    int colorSensorHistoryIndex = 0;
 
     ImgFilter filter;
     ArrayList<MatOfPoint> rings;
     OpenCvCamera cam;
-
 
     double[] wheelPowers;
 
@@ -174,6 +175,41 @@ public class BaseOpMode extends LinearOpMode {
         counterweight.setPosition(COUNTERWEIGHT_POSITIONS[launchIndex]);
     }
 
+    public void readStackSize() {
+        /*
+        if(colorSensorHistoryIndex < colorSensorHistory.length) {
+            boolean[] detected = {false, false};
+            int[] color;
+            outer: for(i = 0; i < 2; i++) {
+                color = new int[]{colorSensors[i].red(), colorSensors[i].green(), colorSensors[i].blue()};
+                for(int n = 0; n < 3; n++) {
+                    if()
+                }
+            }
+            colorSensorHistory[colorSensorHistoryIndex] = 1;
+            if (colorSensorHistory[colorSensorHistoryIndex] > 0) {
+                colorSensorHistoryIndex++;
+            }
+        }
+
+         */
+        if(colorSensorHistoryIndex >= colorSensorHistory.length) {
+            int[] tally = new int[3];
+            for(int n : colorSensorHistory) {
+                if(n > 0) {
+                    tally[n - 1] = tally[n - 1] + 1;
+                }
+            }
+            int highest = 0;
+            for(i = 1; i < 4; i++) {
+                if(tally[i] > tally[highest]) {
+                    highest = i;
+                }
+            }
+            stackSize = highest;
+        }
+    }
+
     @Deprecated
     public boolean servoAtPos(Servo servo, double pos) {
         telemetry.addData("ServoPosition: ", servo.getController().getServoPosition(0));
@@ -224,6 +260,11 @@ public class BaseOpMode extends LinearOpMode {
                 launchAim[i] = hardwareMap.get(Servo.class, "servo" + i);
                 launchAim[i].setDirection(i == 0 ? Servo.Direction.REVERSE : Servo.Direction.FORWARD);
             }
+            /*
+            for (i = 0; i < 2; i++) {
+                colorSensors[i] = hardwareMap.get(ColorSensor.class, "color" + i);
+            }
+             */
         }
 
         telemetry.addData("Status", "Initialized");

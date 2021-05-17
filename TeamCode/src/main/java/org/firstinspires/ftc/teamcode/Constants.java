@@ -68,14 +68,14 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.275, 0.25, 0.225, 0.2}; //0.25125
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.21875, 0.2125, 0.2625}; //0.25125
 
     public static final double[] LAUNCH_ADJUST = {0, 0.05};
 
     /**
      *
      */
-    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333, 1, 1, 1};
+    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333, 1, 1};
 
     /**
      *
@@ -114,5 +114,8 @@ public class Constants {
 
     public static final double FILTER_MIN_X = -1;
 
-    public static final String BUILD_NAME = "v0.18.2";
+    //ring color
+    public static final int[][] RCOLOR = {{200, 100, 0}, {255, 215, 30}};
+
+    public static final String BUILD_NAME = "v0.18.3";
 }
