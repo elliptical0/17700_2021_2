@@ -176,23 +176,28 @@ public class BaseOpMode extends LinearOpMode {
     }
 
     public void readStackSize() {
-        /*
         if(colorSensorHistoryIndex < colorSensorHistory.length) {
             boolean[] detected = {false, false};
             int[] color;
             outer: for(i = 0; i < 2; i++) {
                 color = new int[]{colorSensors[i].red(), colorSensors[i].green(), colorSensors[i].blue()};
                 for(int n = 0; n < 3; n++) {
-                    if()
+                    if(color[n] < RCOLOR[0][n] || color[n] > RCOLOR[1][n]) {
+                        break outer;
+                    }
                 }
+                detected[i] = true;
             }
-            colorSensorHistory[colorSensorHistoryIndex] = 1;
-            if (colorSensorHistory[colorSensorHistoryIndex] > 0) {
-                colorSensorHistoryIndex++;
+            if(detected[0] && detected[1]) {
+                colorSensorHistory[colorSensorHistoryIndex] = 3;
+            } else if(detected[0] || detected[1]) {
+                colorSensorHistory[colorSensorHistoryIndex] = 2;
+            } else {
+                colorSensorHistory[colorSensorHistoryIndex] = 1;
             }
+            colorSensorHistoryIndex++;
         }
 
-         */
         if(colorSensorHistoryIndex >= colorSensorHistory.length) {
             int[] tally = new int[3];
             for(int n : colorSensorHistory) {
@@ -260,13 +265,12 @@ public class BaseOpMode extends LinearOpMode {
                 launchAim[i] = hardwareMap.get(Servo.class, "servo" + i);
                 launchAim[i].setDirection(i == 0 ? Servo.Direction.REVERSE : Servo.Direction.FORWARD);
             }
-            /*
+        }
+        if(COLOR_ACTIVE) {
             for (i = 0; i < 2; i++) {
                 colorSensors[i] = hardwareMap.get(ColorSensor.class, "color" + i);
             }
-             */
         }
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
     }

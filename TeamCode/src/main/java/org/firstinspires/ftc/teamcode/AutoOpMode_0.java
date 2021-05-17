@@ -167,6 +167,8 @@ public class AutoOpMode_0 extends BaseOpMode {
                 }
                 break;
             case 14:
+                launchIndex = 0;
+                powerIntake(false, false, false);
                 moveState(7, 99);
                 break;
             case 23:
