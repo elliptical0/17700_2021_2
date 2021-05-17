@@ -94,7 +94,7 @@ public class Constants {
 
     public static final boolean SERVOS_ACTIVE = true;
 
-    public static final boolean COLOR_ENABLED = false;
+    public static final boolean COLOR_ENABLED = true;
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
@@ -119,5 +119,5 @@ public class Constants {
     //ring color
     public static final int[][] RCOLOR = {{200, 100, 0}, {255, 225, 30}};
 
-    public static final String BUILD_NAME = "v0.18.7";
+    public static final String BUILD_NAME = "v0.19.0";
 }
