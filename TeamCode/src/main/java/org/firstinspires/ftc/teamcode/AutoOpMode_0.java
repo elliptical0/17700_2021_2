@@ -98,9 +98,11 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 2:
                 if(COLOR_ACTIVE) {
-                    readColorSensors();
-                    if(stackSize != 0) {
-                        changeState(3);
+                    if(currentTime - stateStartTime > 500) {
+                        readColorSensors();
+                        if (stackSize != 0) {
+                            changeState(3);
+                        }
                     }
                 } else if(VISION_ENABLED) {
                     telemetry.addData("Stack Size:", filter.stackSize);

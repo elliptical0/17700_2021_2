@@ -210,7 +210,7 @@ public class BaseOpMode extends LinearOpMode {
             colorSensorHistoryIndex++;
         }
         if(colorSensorHistoryIndex >= colorSensorHistory.length) {
-            int[] tally = new int[3];
+            int[] tally = {-colorSensorHistory.length / 5, 0, 0};
             for(int n : colorSensorHistory) {
                 if(n > 0) {
                     tally[n - 1] = tally[n - 1] + 1;
