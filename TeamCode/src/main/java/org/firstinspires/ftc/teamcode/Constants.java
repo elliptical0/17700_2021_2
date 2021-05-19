@@ -121,5 +121,5 @@ public class Constants {
 
     public static final double RED_TO_BLUE_MIN_RATIO = 1.2;
 
-    public static final String BUILD_NAME = "v0.19.9";
+    public static final String BUILD_NAME = "v0.19.10";
 }

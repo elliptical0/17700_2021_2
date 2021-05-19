@@ -155,8 +155,10 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 8:
                 moveState(4, 10);
+                break;
             case 9:
                 moveState(5, 10);
+                break;
             case 10:
                 if(currentTime - stateStartTime > 1000) {
                     changeState(11);
