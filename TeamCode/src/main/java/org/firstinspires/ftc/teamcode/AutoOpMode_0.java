@@ -98,7 +98,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 2:
                 if(COLOR_ACTIVE) {
-                    if(currentTime - stateStartTime > 3000) {
+                    if(currentTime - stateStartTime > 1000) {
                         readColorSensors();
                         if (stackSize != 0) {
                             changeState(3);
@@ -182,7 +182,7 @@ public class AutoOpMode_0 extends BaseOpMode {
             case 13:
                 if(currentTime > 26000) {
                     changeState(14);
-                } else if(currentTime - stateStartTime > 4500) {
+                } else if(currentTime - stateStartTime > 3700) {
                     powerIntake(false, true, false);
                 } else if(currentTime - stateStartTime > 700) {
                     wobbleHandIndex = 0;

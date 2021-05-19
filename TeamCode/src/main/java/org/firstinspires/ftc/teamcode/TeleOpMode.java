@@ -14,11 +14,12 @@ public class TeleOpMode extends BaseOpMode {
     private boolean rstickdeb = true;
     private boolean paddeb = true;
 
+    /*
     @Override
     public void initialize() {
         super.initialize();
-        launchIndex = 1;
     }
+     */
 
     @Override
     public void tick() {
