@@ -98,7 +98,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 2:
                 if(COLOR_ACTIVE) {
-                    if(currentTime - stateStartTime > 5000) {
+                    if(currentTime - stateStartTime > 3000) {
                         readColorSensors();
                         if (stackSize != 0) {
                             changeState(3);
