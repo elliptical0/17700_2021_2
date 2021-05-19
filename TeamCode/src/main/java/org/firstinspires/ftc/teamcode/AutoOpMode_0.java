@@ -35,7 +35,7 @@ public class AutoOpMode_0 extends BaseOpMode {
             new Transform(86, 36, 0),
             new Transform(120, 12, 0),
             SHOOTING_T,
-            new Transform(78, SHOOTING_T.pos.y, 0)
+            new Transform(74, SHOOTING_T.pos.y, 0)
     };
 
     /*
@@ -138,13 +138,17 @@ public class AutoOpMode_0 extends BaseOpMode {
                     switch (stackSize) {
                         case 2:
                             changeState(8);
+                            break;
                         case 3:
                             changeState(9);
+                            break;
                         default:
                             changeState(7);
+                            break;
                     }
                 } else {
                     changeState(7);
+                    break;
                 }
                 break;
             case 7:
@@ -216,6 +220,7 @@ public class AutoOpMode_0 extends BaseOpMode {
             updateLaunchAim();
         }
         telemetry.addData("State:", state);
+        telemetry.addData("StackSize:", stackSize);
         updateTelemetry();
     }
 }

@@ -197,7 +197,7 @@ public class BaseOpMode extends LinearOpMode {
             }
              */
             for(i = 0; i < 2; i++) {
-                detected[i] = (double) colorSensors[i].red() / colorSensors[i].blue() > RED_TO_BLUE_MIN_RATIO;
+                detected[i] = ((double) colorSensors[i].red() / colorSensors[i].blue()) > RED_TO_BLUE_MIN_RATIO;
             }
 
             if(detected[0] && detected[1]) {
