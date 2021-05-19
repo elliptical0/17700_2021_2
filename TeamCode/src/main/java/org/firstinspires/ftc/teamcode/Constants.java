@@ -119,7 +119,7 @@ public class Constants {
     //ring color target: 181, 239, 164
     public static final int[][] RCOLOR = {{781, 117, 94}, {2019, 1967, 626}};
 
-    public static final double RED_TO_BLUE_MIN_RATIO = 3;
+    public static final double RED_TO_BLUE_MIN_RATIO = 1.7;
 
-    public static final String BUILD_NAME = "v0.19.4";
+    public static final String BUILD_NAME = "v0.19.5";
 }

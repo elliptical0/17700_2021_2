@@ -97,6 +97,7 @@ public class BaseOpMode extends LinearOpMode {
         if(SERVOS_ACTIVE) { telemetry.addData("FlywheelRPM:", flywheelRPM); }
         if(COLOR_ACTIVE) {
             telemetry.addData("ColorSensor0", colorSensors[0].red() + ", " + colorSensors[0].green() + ", " + colorSensors[0].blue());
+            telemetry.addData("ColorSensor0 Red:Blue Ratio", (double) colorSensors[0].red() / colorSensors[0].blue());
             telemetry.addData("ColorSensor1", colorSensors[1].red() + ", " + colorSensors[1].green() + ", " + colorSensors[1].blue());
         }
         telemetry.addData("", "");

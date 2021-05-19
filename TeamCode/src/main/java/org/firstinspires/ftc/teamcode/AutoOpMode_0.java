@@ -173,7 +173,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 moveState(6);
                 break;
             case 13:
-                if(currentTime > 27000) {
+                if(currentTime > 26000) {
                     changeState(14);
                 } else if(currentTime - stateStartTime > 4500) {
                     powerIntake(false, true, false);
