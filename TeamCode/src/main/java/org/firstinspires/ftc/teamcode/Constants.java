@@ -57,7 +57,7 @@ public class Constants {
     /**
      * Shooting transform in inches.
      */
-    public static final Transform SHOOTING_T = new Transform(68.2, 22.157, 0.15); //0.059
+    public static final Transform SHOOTING_T = new Transform(68.2, 22.157, 0.0); //head: 0.15  //0.059
     //90.94, 14.72, 0.50
 
     /**
@@ -121,5 +121,5 @@ public class Constants {
 
     public static final double RED_TO_BLUE_MIN_RATIO = 1.0;
 
-    public static final String BUILD_NAME = "v0.19.12";
+    public static final String BUILD_NAME = "v0.19.13";
 }
