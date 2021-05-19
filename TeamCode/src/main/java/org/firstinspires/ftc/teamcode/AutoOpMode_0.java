@@ -148,7 +148,6 @@ public class AutoOpMode_0 extends BaseOpMode {
                     }
                 } else {
                     changeState(7);
-                    break;
                 }
                 break;
             case 7:
