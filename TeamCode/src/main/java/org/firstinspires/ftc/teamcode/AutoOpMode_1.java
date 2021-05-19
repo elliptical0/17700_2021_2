@@ -7,7 +7,7 @@ public class AutoOpMode_1 extends AutoOpMode_0 {
 
     @Override
     public void initialize() {
-        VISION_ENABLED = false;
+        THREERINGS = false;
         super.initialize();
     }
 }
