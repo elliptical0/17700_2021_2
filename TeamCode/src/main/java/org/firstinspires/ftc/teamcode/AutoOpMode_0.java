@@ -35,7 +35,7 @@ public class AutoOpMode_0 extends BaseOpMode {
             new Transform(86, 36, 0),
             new Transform(120, 12, 0),
             SHOOTING_T,
-            new Transform(82, SHOOTING_T.pos.y, 0)
+            new Transform(78, SHOOTING_T.pos.y, 0)
     };
 
     /*
@@ -134,7 +134,7 @@ public class AutoOpMode_0 extends BaseOpMode {
                 break;
             case 5:
                 wobbleAimIndex = 2;
-                if(VISION_ENABLED) {
+                if(VISION_ENABLED || COLOR_ACTIVE) {
                     switch (stackSize) {
                         case 2:
                             changeState(8);
