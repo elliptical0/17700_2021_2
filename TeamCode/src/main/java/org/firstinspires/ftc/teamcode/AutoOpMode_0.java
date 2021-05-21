@@ -87,14 +87,14 @@ public class AutoOpMode_0 extends BaseOpMode {
                     startVision();
                 }
                 moveState(0);
-                if(currentTime < 1500 && THREERINGS) {
+                if(currentTime < 1100 && THREERINGS) {
                     powerIntake(true, false, false);
                 } else {
                     powerIntake(false, false, false);
                 }
                 break;
             case 1:
-                if(currentTime < 1500 && THREERINGS) {
+                if(currentTime < 1100 && THREERINGS) {
                     powerIntake(true, false, false);
                 } else {
                     powerIntake(false, false, false);
