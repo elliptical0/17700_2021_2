@@ -68,7 +68,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.212}; //0.202 //0.25125
+    public static final double[] LAUNCH_AIM_POSITIONS = {0.4, 0.208}; //0.202 //0.25125
 
     public static final double[] LAUNCH_ADJUST = {0, 0.05};
 
@@ -121,5 +121,5 @@ public class Constants {
 
     public static final double RED_TO_BLUE_MIN_RATIO = 1.0;
 
-    public static final String BUILD_NAME = "v0.20.3";
+    public static final String BUILD_NAME = "v0.20.4";
 }
