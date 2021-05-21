@@ -40,7 +40,7 @@ public class TeleOpMode extends BaseOpMode {
 
         //Start: Reset position. Back: Change goal position.
         if(gamepad1.start) {
-            resetPosition(0);
+            resetPosition(1);
         }
         if(gamepad1.back && backdeb) {
             backdeb = false;
