@@ -236,7 +236,7 @@ public class BaseOpMode extends LinearOpMode {
         for(i = 0; i < 3; i++) {
             encoderResetPos[i] = (drive[i].getCurrentPosition());
         }
-        transform = STARTING_T[index];
+        transform = RESET_T;
     }
 
     public void startVision() {

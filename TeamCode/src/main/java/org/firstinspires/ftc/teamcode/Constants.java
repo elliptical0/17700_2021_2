@@ -65,6 +65,8 @@ public class Constants {
      */
     public static final Transform[] STARTING_T = {new Transform(9, 15, 0), new Transform(9, 15, 0)};
 
+    public static final Transform RESET_T = new Transform(9, 9, 0);
+
     /**
      *
      */
@@ -121,5 +123,5 @@ public class Constants {
 
     public static final double RED_TO_BLUE_MIN_RATIO = 1.0;
 
-    public static final String BUILD_NAME = "v0.20.0";
+    public static final String BUILD_NAME = "v0.20.1";
 }
