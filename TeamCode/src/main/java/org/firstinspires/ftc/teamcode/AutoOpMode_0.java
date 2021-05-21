@@ -29,8 +29,8 @@ public class AutoOpMode_0 extends BaseOpMode {
         stateStartTime = currentTime;
     }
 
-    public final Transform[] transforms = {new Transform(34.5, 30.5, 0), //x:34 soon!!!
-            new Transform(34.5, 25, 0), //new Transform(22.2, 16.5, -0.462)
+    public final Transform[] transforms = {new Transform(35, 30.5, 0), //x:34 soon!!!
+            new Transform(35, 25, 0), //new Transform(22.2, 16.5, -0.462)
             new Transform(50, 20, 0),
             new Transform(62, 12, 0),
             new Transform(86, 36, 0),
