@@ -58,10 +58,10 @@ public class BaseOpMode extends LinearOpMode {
 
     double[] wheelPowers;
 
-    double[] encoderPos = new double[3];
-    double[] encoderResetPos = new double[3];
-    double[] encoderDelta = new double[3];
-    Transform transform = new Transform(0, 0, 0);
+    static double[] encoderPos = new double[3];
+    static double[] encoderResetPos = new double[3];
+    static double[] encoderDelta = new double[3];
+    static Transform transform = new Transform(0, 0, 0);
 
     int shoti = 0;
 
