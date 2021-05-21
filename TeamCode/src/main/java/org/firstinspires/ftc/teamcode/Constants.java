@@ -75,7 +75,7 @@ public class Constants {
     /**
      *
      */
-    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 0.3333};
+    public static final double[] COUNTERWEIGHT_POSITIONS = {1, 1}; //1, 0.3333
 
     /**
      *
@@ -98,7 +98,7 @@ public class Constants {
 
     public static final boolean FLYWHEEL_ENCODER = true;
 
-    public static final double FLYWHEEL_MAX_RPM = 5200;
+    public static final double FLYWHEEL_MAX_RPM = 5300;
 
     @Deprecated
     public static final double FILTER_MIN_AREA = 0;
@@ -121,5 +121,5 @@ public class Constants {
 
     public static final double RED_TO_BLUE_MIN_RATIO = 1.0;
 
-    public static final String BUILD_NAME = "v0.20.2";
+    public static final String BUILD_NAME = "v0.20.3";
 }
